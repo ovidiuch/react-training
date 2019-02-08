@@ -21,6 +21,7 @@ function getIndexFromRouteParams({ index }) {
 function Quiz({ history, match, location }) {
   const { name, questions } = quizTemplate;
   const activeQuestionIndex = getIndexFromRouteParams(match.params);
+  const [submitted, setSubmitted] = useState(false);
   const [answers, setAnswers] = useState(location.state || {});
 
   function changeAnswer(question, answer) {
@@ -33,7 +34,7 @@ function Quiz({ history, match, location }) {
   function advance() {
     const lastQuestion = activeQuestionIndex === questions.length - 1;
     if (lastQuestion) {
-      console.log({ answers });
+      setSubmitted(true);
     } else {
       goToQuestion(activeQuestionIndex + 1);
     }
@@ -43,40 +44,71 @@ function Quiz({ history, match, location }) {
     history.push(`/${index}`, answers);
   }
 
-  // TODO:
-  // - ActiveQuestionList
-  // - CompletedQuestionList
   return (
     <div>
       <h1>{name}</h1>
-      <ul>
-        {questions.map((question, questionIndex) => (
-          <li key={questionIndex}>
-            {questionIndex === activeQuestionIndex ? (
-              <ActiveQuizQuestion
-                question={question}
-                answer={answers[question]}
-                buttonLabel={
-                  activeQuestionIndex === questions.length - 1
-                    ? "Submit"
-                    : "Next"
-                }
-                onAnswerChange={answer => changeAnswer(question, answer)}
-                onAdvance={advance}
-              />
-            ) : questionIndex < activeQuestionIndex ? (
-              <PastQuestion
-                question={question}
-                answer={answers[question]}
-                onSelect={() => goToQuestion(questionIndex)}
-              />
-            ) : (
-              <FutureQuestion question={question} />
-            )}
-          </li>
-        ))}
-      </ul>
+      {submitted ? (
+        <CompletedQuestionList questions={questions} answers={answers} />
+      ) : (
+        <ActiveQuestionList
+          questions={questions}
+          answers={answers}
+          activeQuestionIndex={activeQuestionIndex}
+          changeAnswer={changeAnswer}
+          advance={advance}
+          goToQuestion={goToQuestion}
+        />
+      )}
     </div>
+  );
+}
+
+function ActiveQuestionList({
+  questions,
+  answers,
+  activeQuestionIndex,
+  changeAnswer,
+  advance,
+  goToQuestion
+}) {
+  return (
+    <ul>
+      {questions.map((question, questionIndex) => (
+        <li key={questionIndex}>
+          {questionIndex === activeQuestionIndex ? (
+            <ActiveQuizQuestion
+              question={question}
+              answer={answers[question]}
+              buttonLabel={
+                activeQuestionIndex === questions.length - 1 ? "Submit" : "Next"
+              }
+              onAnswerChange={answer => changeAnswer(question, answer)}
+              onSubmit={advance}
+            />
+          ) : questionIndex < activeQuestionIndex ? (
+            <PastQuestion
+              question={question}
+              answer={answers[question]}
+              onSelect={() => goToQuestion(questionIndex)}
+            />
+          ) : (
+            <FutureQuestion question={question} />
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function CompletedQuestionList({ questions, answers }) {
+  return (
+    <ul>
+      {questions.map((question, questionIndex) => (
+        <li key={questionIndex}>
+          <PastQuestion question={question} answer={answers[question]} />
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -85,7 +117,7 @@ function ActiveQuizQuestion({
   answer = "",
   buttonLabel,
   onAnswerChange,
-  onAdvance
+  onSubmit
 }) {
   function handleInputRef(inputEl) {
     if (inputEl) {
@@ -97,7 +129,7 @@ function ActiveQuizQuestion({
     <GreyForm
       onSubmit={e => {
         e.preventDefault();
-        onAdvance();
+        onSubmit();
       }}
     >
       <h2>{question}</h2>
