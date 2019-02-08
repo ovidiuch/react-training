@@ -1,4 +1,4 @@
-import { retrieveAnswers, storeAnswers } from "./answersPersist";
+import { retrieveAnswers, storeAnswers } from "./localPersist";
 
 const quizTemplate = {
   name: "How was your day?",
