@@ -1,22 +1,23 @@
 import React from "react";
-import { Router, Route } from "react-router-dom";
-import { createStore } from "redux";
+import { BrowserRouter, Route } from "react-router-dom";
+import { createStore, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
-import Quiz from "./Quiz";
-import { history } from "./routerHistory";
+import ReduxThunk from "redux-thunk";
+import { QuizRoute } from "./Quiz";
 import { appStateReducer } from "./appState";
 
 const store = createStore(
   appStateReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeWithDevTools(applyMiddleware(ReduxThunk))
 );
 
 export default function App() {
   return (
     <Provider store={store}>
-      <Router history={history}>
-        <Route path="/:index*" component={Quiz} />
-      </Router>
+      <BrowserRouter>
+        <Route path="/:index*" component={QuizRoute} />
+      </BrowserRouter>
     </Provider>
   );
 }

@@ -1,8 +1,8 @@
-import { history } from "./routerHistory";
+import { retrieveAnswers, storeAnswers } from "./answersPersist";
 
 const initialAppState = {
   submittedQuiz: false,
-  answers: history.location.state || {}
+  answers: retrieveAnswers()
 };
 
 export function appStateReducer(prevState = initialAppState, action) {
@@ -29,9 +29,12 @@ export function appStateReducer(prevState = initialAppState, action) {
 }
 
 export function changeAnswer(question, answer) {
-  return {
-    type: "CHANGE_ANSWER",
-    payload: { question, answer }
+  return (dispatch, getState) => {
+    dispatch({
+      type: "CHANGE_ANSWER",
+      payload: { question, answer }
+    });
+    storeAnswers(getState().answers);
   };
 }
 

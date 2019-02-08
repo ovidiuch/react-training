@@ -8,6 +8,21 @@ const quizTemplate = {
   questions: ["Was it sunny?", "Was the food good?", "Was everyone friendly?"]
 };
 
+export function QuizRoute({ history, match }) {
+  const activeQuestionIndex = getIndexFromRouteParams(match.params);
+
+  function handleQuestionSelect(questionIndex) {
+    history.push(`/${questionIndex}`);
+  }
+
+  return (
+    <ConnectedQuiz
+      activeQuestionIndex={activeQuestionIndex}
+      onQuestionSelect={handleQuestionSelect}
+    />
+  );
+}
+
 function mapStateToProps({ answers, submittedQuiz }) {
   return {
     answers,
@@ -20,34 +35,28 @@ const mapDispatchToProps = {
   onQuizSubmit: submitQuiz
 };
 
-export default connect(
+const ConnectedQuiz = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Quiz);
 
 function Quiz({
-  history,
-  match,
-  location,
+  activeQuestionIndex,
   answers,
   submittedQuiz,
+  onQuestionSelect,
   onAnswerChange,
   onQuizSubmit
 }) {
   const { name, questions } = quizTemplate;
-  const activeQuestionIndex = getIndexFromRouteParams(match.params);
 
-  function submitAnswer() {
+  function handleAnswerSubmit() {
     const lastQuestion = activeQuestionIndex === questions.length - 1;
     if (lastQuestion) {
       onQuizSubmit();
     } else {
-      selectQuestion(activeQuestionIndex + 1);
+      onQuestionSelect(activeQuestionIndex + 1);
     }
-  }
-
-  function selectQuestion(index) {
-    history.push(`/${index}`, answers);
   }
 
   return (
@@ -61,8 +70,8 @@ function Quiz({
           answers={answers}
           activeQuestionIndex={activeQuestionIndex}
           onAnswerChange={onAnswerChange}
-          onAnswerSubmit={submitAnswer}
-          onQuestionSelect={selectQuestion}
+          onAnswerSubmit={handleAnswerSubmit}
+          onQuestionSelect={onQuestionSelect}
         />
       )}
     </div>
