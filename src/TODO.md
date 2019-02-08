@@ -14,7 +14,7 @@ TODO:
 - [ ] styling
 - [x] redux
 - [ ] component lifecycle (fetch on did mount)
-- [ ] async actions
+- [ ] async actions (persist answers & fetch template)
 - [ ] tests
 - [ ] composition (selected question with customizable button)
 - [ ] render props
