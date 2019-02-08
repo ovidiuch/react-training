@@ -94,7 +94,7 @@ function ActiveQuizQuestion({
   }
 
   return (
-    <StyledForm
+    <GreyForm
       onSubmit={e => {
         e.preventDefault();
         onAdvance();
@@ -112,11 +112,11 @@ function ActiveQuizQuestion({
       <button type="submit" disabled={!answer}>
         {buttonLabel}
       </button>
-    </StyledForm>
+    </GreyForm>
   );
 }
 
-function StyledForm({ children, ...formProps }) {
+function GreyForm({ children, ...formProps }) {
   return (
     <form {...formProps} style={{ background: "#e1e1e1", padding: 10 }}>
       {children}
