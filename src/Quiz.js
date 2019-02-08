@@ -24,11 +24,11 @@ export function Quiz({ history, match, location }) {
     if (lastQuestion) {
       setSubmitted(true);
     } else {
-      changeQuestion(activeQuestionIndex + 1);
+      selectQuestion(activeQuestionIndex + 1);
     }
   }
 
-  function changeQuestion(index) {
+  function selectQuestion(index) {
     history.push(`/${index}`, answers);
   }
 
@@ -44,7 +44,7 @@ export function Quiz({ history, match, location }) {
           activeQuestionIndex={activeQuestionIndex}
           onAnswerChange={handleAnswerChange}
           onAnswerSubmit={submitAnswer}
-          onQuestionChange={changeQuestion}
+          onQuestionSelect={selectQuestion}
         />
       )}
     </div>

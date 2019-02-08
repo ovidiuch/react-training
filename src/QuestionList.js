@@ -7,7 +7,7 @@ export function ActiveQuestionList({
   activeQuestionIndex,
   onAnswerChange,
   onAnswerSubmit,
-  onQuestionChange
+  onQuestionSelect
 }) {
   return (
     <ul>
@@ -27,7 +27,7 @@ export function ActiveQuestionList({
             <PastQuestion
               question={question}
               answer={answers[question]}
-              onSelect={() => onQuestionChange(questionIndex)}
+              onSelect={() => onQuestionSelect(questionIndex)}
             />
           ) : (
             <FutureQuestion question={question} />
