@@ -24,23 +24,23 @@ function Quiz({ history, match, location }) {
   const [submitted, setSubmitted] = useState(false);
   const [answers, setAnswers] = useState(location.state || {});
 
-  function changeAnswer(question, answer) {
+  function handleAnswerChange(question, answer) {
     setAnswers({
       ...answers,
       [question]: answer
     });
   }
 
-  function advance() {
+  function submitAnswer() {
     const lastQuestion = activeQuestionIndex === questions.length - 1;
     if (lastQuestion) {
       setSubmitted(true);
     } else {
-      goToQuestion(activeQuestionIndex + 1);
+      changeQuestion(activeQuestionIndex + 1);
     }
   }
 
-  function goToQuestion(index) {
+  function changeQuestion(index) {
     history.push(`/${index}`, answers);
   }
 
@@ -54,9 +54,9 @@ function Quiz({ history, match, location }) {
           questions={questions}
           answers={answers}
           activeQuestionIndex={activeQuestionIndex}
-          changeAnswer={changeAnswer}
-          advance={advance}
-          goToQuestion={goToQuestion}
+          onAnswerChange={handleAnswerChange}
+          onAnswerSubmit={submitAnswer}
+          onQuestionChange={changeQuestion}
         />
       )}
     </div>
@@ -67,9 +67,9 @@ function ActiveQuestionList({
   questions,
   answers,
   activeQuestionIndex,
-  changeAnswer,
-  advance,
-  goToQuestion
+  onAnswerChange,
+  onAnswerSubmit,
+  onQuestionChange
 }) {
   return (
     <ul>
@@ -82,14 +82,14 @@ function ActiveQuestionList({
               buttonLabel={
                 activeQuestionIndex === questions.length - 1 ? "Submit" : "Next"
               }
-              onAnswerChange={answer => changeAnswer(question, answer)}
-              onSubmit={advance}
+              onChange={answer => onAnswerChange(question, answer)}
+              onSubmit={onAnswerSubmit}
             />
           ) : questionIndex < activeQuestionIndex ? (
             <PastQuestion
               question={question}
               answer={answers[question]}
-              onSelect={() => goToQuestion(questionIndex)}
+              onSelect={() => onQuestionChange(questionIndex)}
             />
           ) : (
             <FutureQuestion question={question} />
@@ -116,7 +116,7 @@ function ActiveQuizQuestion({
   question,
   answer = "",
   buttonLabel,
-  onAnswerChange,
+  onChange,
   onSubmit
 }) {
   function handleInputRef(inputEl) {
@@ -138,7 +138,7 @@ function ActiveQuizQuestion({
         type="text"
         value={answer}
         onChange={e => {
-          onAnswerChange(e.target.value);
+          onChange(e.target.value);
         }}
       />
       <button type="submit" disabled={!answer}>
