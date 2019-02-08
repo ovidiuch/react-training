@@ -6,13 +6,13 @@ TODO:
 - [x] lists and keys (map questions to list items)
 - [x] dom events (on input change)
 - [x] forms (submit answer on enter)
-- [ ] conditional rendering (simulate loading...)
+- [x] conditional rendering (active past or future question)
 - [x] children (styled form before styled components)
 - [x] refs (to focus)
 - [x] routing (selected question)
 - [ ] context (dark/light theme)
 - [ ] styling
-- [ ] redux
+- [x] redux
 - [ ] component lifecycle (fetch on did mount)
 - [ ] async actions
 - [ ] tests

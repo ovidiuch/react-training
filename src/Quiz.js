@@ -1,28 +1,46 @@
-import React, { useState } from "react";
+import React from "react";
 import { ActiveQuestionList, CompletedQuestionList } from "./QuestionList";
+import { connect } from "react-redux";
+import { changeAnswer, submitQuiz } from "./appState";
 
 const quizTemplate = {
   name: "How was your day?",
   questions: ["Was it sunny?", "Was the food good?", "Was everyone friendly?"]
 };
 
-export function Quiz({ history, match, location }) {
+function mapStateToProps({ answers, submittedQuiz }) {
+  return {
+    answers,
+    submittedQuiz
+  };
+}
+
+const mapDispatchToProps = {
+  onAnswerChange: changeAnswer,
+  onQuizSubmit: submitQuiz
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Quiz);
+
+function Quiz({
+  history,
+  match,
+  location,
+  answers,
+  submittedQuiz,
+  onAnswerChange,
+  onQuizSubmit
+}) {
   const { name, questions } = quizTemplate;
   const activeQuestionIndex = getIndexFromRouteParams(match.params);
-  const [submitted, setSubmitted] = useState(false);
-  const [answers, setAnswers] = useState(location.state || {});
-
-  function handleAnswerChange(question, answer) {
-    setAnswers({
-      ...answers,
-      [question]: answer
-    });
-  }
 
   function submitAnswer() {
     const lastQuestion = activeQuestionIndex === questions.length - 1;
     if (lastQuestion) {
-      setSubmitted(true);
+      onQuizSubmit();
     } else {
       selectQuestion(activeQuestionIndex + 1);
     }
@@ -35,14 +53,14 @@ export function Quiz({ history, match, location }) {
   return (
     <div>
       <h1>{name}</h1>
-      {submitted ? (
+      {submittedQuiz ? (
         <CompletedQuestionList questions={questions} answers={answers} />
       ) : (
         <ActiveQuestionList
           questions={questions}
           answers={answers}
           activeQuestionIndex={activeQuestionIndex}
-          onAnswerChange={handleAnswerChange}
+          onAnswerChange={onAnswerChange}
           onAnswerSubmit={submitAnswer}
           onQuestionSelect={selectQuestion}
         />
