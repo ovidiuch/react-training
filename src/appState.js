@@ -1,8 +1,14 @@
 import { retrieveAnswers, storeAnswers } from "./answersPersist";
 
+const quizTemplate = {
+  name: "How was your day?",
+  questions: ["Was it sunny?", "Was the food good?", "Was everyone friendly?"]
+};
+
 const initialAppState = {
-  submittedQuiz: false,
-  answers: retrieveAnswers()
+  quizTemplate,
+  answers: retrieveAnswers(),
+  submittedQuiz: false
 };
 
 export function appStateReducer(prevState = initialAppState, action) {

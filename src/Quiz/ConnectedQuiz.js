@@ -2,8 +2,9 @@ import { connect } from "react-redux";
 import { changeAnswer, submitQuiz } from "../appState";
 import { Quiz } from "./Quiz";
 
-function mapStateToProps({ answers, submittedQuiz }) {
+function mapStateToProps({ quizTemplate, answers, submittedQuiz }) {
   return {
+    quizTemplate,
     answers,
     submittedQuiz
   };

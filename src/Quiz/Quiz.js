@@ -1,12 +1,8 @@
 import React from "react";
 import { ActiveQuestionList, CompletedQuestionList } from "./QuestionList";
 
-const quizTemplate = {
-  name: "How was your day?",
-  questions: ["Was it sunny?", "Was the food good?", "Was everyone friendly?"]
-};
-
 export function Quiz({
+  quizTemplate,
   activeQuestionIndex,
   answers,
   submittedQuiz,
