@@ -23,14 +23,14 @@ function Quiz({ history, match, location }) {
   const activeQuestionIndex = getIndexFromRouteParams(match.params);
   const [answers, setAnswers] = useState(location.state || {});
 
-  function handleAnswerChange(question, answer) {
+  function changeAnswer(question, answer) {
     setAnswers({
       ...answers,
       [question]: answer
     });
   }
 
-  function handleAdvance() {
+  function advance() {
     const lastQuestion = activeQuestionIndex === questions.length - 1;
     if (lastQuestion) {
       console.log({ answers });
@@ -61,8 +61,8 @@ function Quiz({ history, match, location }) {
                     ? "Submit"
                     : "Next"
                 }
-                onAnswerChange={answer => handleAnswerChange(question, answer)}
-                onAdvance={handleAdvance}
+                onAnswerChange={answer => changeAnswer(question, answer)}
+                onAdvance={advance}
               />
             ) : questionIndex < activeQuestionIndex ? (
               <PastQuestion
