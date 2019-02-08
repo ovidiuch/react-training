@@ -57,6 +57,7 @@ export function FutureQuestion({ question, answer }) {
   return (
     <div style={{ opacity: 0.5 }}>
       <h2>{question}</h2>
+      <p>{answer}</p>
     </div>
   );
 }

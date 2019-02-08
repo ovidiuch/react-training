@@ -30,7 +30,7 @@ export function ActiveQuestionList({
               onSelect={() => onQuestionSelect(questionIndex)}
             />
           ) : (
-            <FutureQuestion question={question} />
+            <FutureQuestion question={question} answer={answers[question]} />
           )}
         </li>
       ))}
@@ -40,12 +40,15 @@ export function ActiveQuestionList({
 
 export function CompletedQuestionList({ questions, answers }) {
   return (
-    <ul>
-      {questions.map((question, questionIndex) => (
-        <li key={questionIndex}>
-          <PastQuestion question={question} answer={answers[question]} />
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul>
+        {questions.map((question, questionIndex) => (
+          <li key={questionIndex}>
+            <FutureQuestion question={question} answer={answers[question]} />
+          </li>
+        ))}
+      </ul>
+      <h2>Thanks for your time!</h2>
+    </>
   );
 }
