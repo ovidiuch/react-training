@@ -4,7 +4,7 @@ import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
-import { QuizRoute } from "./Quiz";
+import Quiz from "./Quiz";
 import { appStateReducer } from "./appState";
 
 const store = createStore(
@@ -16,7 +16,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Route path="/:index*" component={QuizRoute} />
+        <Route path="/:index*" component={Quiz} />
       </BrowserRouter>
     </Provider>
   );

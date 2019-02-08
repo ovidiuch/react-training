@@ -1,46 +1,12 @@
 import React from "react";
 import { ActiveQuestionList, CompletedQuestionList } from "./QuestionList";
-import { connect } from "react-redux";
-import { changeAnswer, submitQuiz } from "./appState";
 
 const quizTemplate = {
   name: "How was your day?",
   questions: ["Was it sunny?", "Was the food good?", "Was everyone friendly?"]
 };
 
-export function QuizRoute({ history, match }) {
-  const activeQuestionIndex = getIndexFromRouteParams(match.params);
-
-  function handleQuestionSelect(questionIndex) {
-    history.push(`/${questionIndex}`);
-  }
-
-  return (
-    <ConnectedQuiz
-      activeQuestionIndex={activeQuestionIndex}
-      onQuestionSelect={handleQuestionSelect}
-    />
-  );
-}
-
-function mapStateToProps({ answers, submittedQuiz }) {
-  return {
-    answers,
-    submittedQuiz
-  };
-}
-
-const mapDispatchToProps = {
-  onAnswerChange: changeAnswer,
-  onQuizSubmit: submitQuiz
-};
-
-const ConnectedQuiz = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Quiz);
-
-function Quiz({
+export function Quiz({
   activeQuestionIndex,
   answers,
   submittedQuiz,
@@ -76,8 +42,4 @@ function Quiz({
       )}
     </div>
   );
-}
-
-function getIndexFromRouteParams({ index }) {
-  return index !== undefined ? Number(index) : 0;
 }
