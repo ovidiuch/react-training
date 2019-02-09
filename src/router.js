@@ -9,3 +9,7 @@ export function getIndexFromRouteParams({ index }) {
 export function selectQuestion(questionIndex) {
   history.push(`/${questionIndex}`);
 }
+
+export function showSubmittedPage() {
+  history.push(`/done`);
+}

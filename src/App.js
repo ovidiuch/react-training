@@ -1,10 +1,10 @@
 import React from "react";
-import { Router, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
-import Quiz from "./Quiz";
+import { ActiveQuiz, CompletedQuiz } from "./Quiz";
 import { history } from "./router";
 import { appStateReducer } from "./appState";
 
@@ -17,7 +17,10 @@ export default function App() {
   return (
     <Provider store={store}>
       <Router history={history}>
-        <Route path="/:index*" component={Quiz} />
+        <Switch>
+          <Route path="/done" component={CompletedQuiz} />
+          <Route path="/:index*" component={ActiveQuiz} />
+        </Switch>
       </Router>
     </Provider>
   );

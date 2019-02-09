@@ -1,12 +1,10 @@
 import { retrieveAnswers, storeAnswers } from "./localPersist";
-import { selectQuestion } from "./router";
+import { selectQuestion, showSubmittedPage } from "./router";
 
 const initialAppState = {
   fetchingTemplate: true,
   template: null,
-  answers: retrieveAnswers(),
-  // TODO: Move submitted state to URL
-  submittedQuiz: false
+  answers: retrieveAnswers()
 };
 
 export function appStateReducer(prevState = initialAppState, action) {
@@ -27,12 +25,6 @@ export function appStateReducer(prevState = initialAppState, action) {
           ...prevState.answers,
           [question]: answer
         }
-      };
-    }
-    case "SUBMIT_QUIZ": {
-      return {
-        ...prevState,
-        submittedQuiz: true
       };
     }
     default:
@@ -71,7 +63,8 @@ export function submitAnswer(activeQuestionIndex) {
     const lastQuestion = activeQuestionIndex === questions.length - 1;
 
     if (lastQuestion) {
-      dispatch(createSubmitQuizAction());
+      // TODO: Store answers in db
+      showSubmittedPage();
     } else {
       selectQuestion(activeQuestionIndex + 1);
     }
@@ -90,8 +83,4 @@ function createChangeAnswerAction(question, answer) {
     type: "CHANGE_ANSWER",
     payload: { question, answer }
   };
-}
-
-function createSubmitQuizAction() {
-  return { type: "SUBMIT_QUIZ" };
 }

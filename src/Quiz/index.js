@@ -1,1 +1,2 @@
-export { QuizRoute as default } from "./QuizRoute";
+export { default as ActiveQuiz } from "./ActiveQuiz";
+export { default as CompletedQuiz } from "./CompletedQuiz";
