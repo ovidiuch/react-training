@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchTemplate } from "../appState";
+import { fetchTemplate } from "../actions";
 
 function QuizLayout({ children, fetchingTemplate, template, onFetchTemplate }) {
   useEffect(() => onFetchTemplate(), []);

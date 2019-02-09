@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { selectQuestion, getIndexFromRouteParams } from "../router";
-import { changeAnswer, submitAnswer } from "../appState";
+import { changeAnswer, submitAnswer } from "../actions";
 import QuizLayout from "./QuizLayout";
 import { ActiveQuestion, FutureQuestion, PastQuestion } from "./Question";
 

@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 import { ActiveQuiz, CompletedQuiz } from "./Quiz";
 import { history } from "./router";
-import { appStateReducer } from "./appState";
+import { appStateReducer } from "./state";
 
 const store = createStore(
   appStateReducer,
