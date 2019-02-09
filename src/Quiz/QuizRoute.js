@@ -1,21 +1,11 @@
 import React from "react";
+import { getIndexFromRouteParams } from "../router";
 import { ConnectedQuiz } from "./ConnectedQuiz";
 
-export function QuizRoute({ history, match }) {
-  const activeQuestionIndex = getIndexFromRouteParams(match.params);
-
-  function handleQuestionSelect(questionIndex) {
-    history.push(`/${questionIndex}`);
-  }
-
+export function QuizRoute({ match }) {
   return (
     <ConnectedQuiz
-      activeQuestionIndex={activeQuestionIndex}
-      onQuestionSelect={handleQuestionSelect}
+      activeQuestionIndex={getIndexFromRouteParams(match.params)}
     />
   );
-}
-
-function getIndexFromRouteParams({ index }) {
-  return index !== undefined ? Number(index) : 0;
 }

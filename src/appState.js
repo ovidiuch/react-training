@@ -1,4 +1,5 @@
 import { retrieveAnswers, storeAnswers } from "./localPersist";
+import { selectQuestion } from "./router";
 
 const initialAppState = {
   fetchingTemplate: true,
@@ -39,19 +40,12 @@ export function appStateReducer(prevState = initialAppState, action) {
   }
 }
 
-function receiveTemplate(template) {
-  return {
-    type: "RECEIVE_TEMPLATE",
-    payload: { template }
-  };
-}
-
 export function fetchTemplate() {
   return dispatch => {
     setTimeout(() => {
       // TODO: Fetch template from server
       dispatch(
-        receiveTemplate({
+        createReceiveTemplateAction({
           name: "How was your day?",
           questions: [
             "Was it sunny?",
@@ -60,20 +54,44 @@ export function fetchTemplate() {
           ]
         })
       );
-    }, 2000);
+    }, 500);
   };
 }
 
 export function changeAnswer(question, answer) {
   return (dispatch, getState) => {
-    dispatch({
-      type: "CHANGE_ANSWER",
-      payload: { question, answer }
-    });
+    dispatch(createChangeAnswerAction(question, answer));
     storeAnswers(getState().answers);
   };
 }
 
-export function submitQuiz() {
+export function submitAnswer(activeQuestionIndex) {
+  return (dispatch, getState) => {
+    const { questions } = getState().template;
+    const lastQuestion = activeQuestionIndex === questions.length - 1;
+
+    if (lastQuestion) {
+      dispatch(createSubmitQuizAction());
+    } else {
+      selectQuestion(activeQuestionIndex + 1);
+    }
+  };
+}
+
+function createReceiveTemplateAction(template) {
+  return {
+    type: "RECEIVE_TEMPLATE",
+    payload: { template }
+  };
+}
+
+function createChangeAnswerAction(question, answer) {
+  return {
+    type: "CHANGE_ANSWER",
+    payload: { question, answer }
+  };
+}
+
+function createSubmitQuizAction() {
   return { type: "SUBMIT_QUIZ" };
 }

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { fetchTemplate, changeAnswer, submitQuiz } from "../appState";
+import { fetchTemplate, changeAnswer, submitAnswer } from "../appState";
 import { Quiz } from "./Quiz";
 
 function mapStateToProps({
@@ -19,7 +19,7 @@ function mapStateToProps({
 const mapDispatchToProps = {
   onFetchTemplate: fetchTemplate,
   onAnswerChange: changeAnswer,
-  onQuizSubmit: submitQuiz
+  onAnswerSubmit: submitAnswer
 };
 
 export const ConnectedQuiz = connect(

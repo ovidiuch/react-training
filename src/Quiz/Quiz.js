@@ -1,31 +1,21 @@
 import React, { useEffect } from "react";
+import { selectQuestion } from "../router";
 import { ActiveQuestionList, CompletedQuestionList } from "./QuestionList";
 
 export function Quiz({
+  activeQuestionIndex,
   fetchingTemplate,
   template,
-  activeQuestionIndex,
   answers,
   submittedQuiz,
   onFetchTemplate,
-  onQuestionSelect,
   onAnswerChange,
-  onQuizSubmit
+  onAnswerSubmit
 }) {
   useEffect(() => onFetchTemplate(), []);
 
   if (fetchingTemplate) {
     return <div>Fetching template...</div>;
-  }
-
-  // TODO: Move to actions
-  function handleAnswerSubmit() {
-    const lastQuestion = activeQuestionIndex === template.questions.length - 1;
-    if (lastQuestion) {
-      onQuizSubmit();
-    } else {
-      onQuestionSelect(activeQuestionIndex + 1);
-    }
   }
 
   return (
@@ -42,8 +32,8 @@ export function Quiz({
           answers={answers}
           activeQuestionIndex={activeQuestionIndex}
           onAnswerChange={onAnswerChange}
-          onAnswerSubmit={handleAnswerSubmit}
-          onQuestionSelect={onQuestionSelect}
+          onAnswerSubmit={() => onAnswerSubmit(activeQuestionIndex)}
+          onQuestionSelect={selectQuestion}
         />
       )}
     </div>
