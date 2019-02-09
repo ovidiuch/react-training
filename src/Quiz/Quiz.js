@@ -1,19 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ActiveQuestionList, CompletedQuestionList } from "./QuestionList";
 
 export function Quiz({
-  quizTemplate,
+  fetchingTemplate,
+  template,
   activeQuestionIndex,
   answers,
   submittedQuiz,
+  onFetchTemplate,
   onQuestionSelect,
   onAnswerChange,
   onQuizSubmit
 }) {
-  const { name, questions } = quizTemplate;
+  useEffect(() => onFetchTemplate(), []);
 
+  if (fetchingTemplate) {
+    return <div>Fetching template...</div>;
+  }
+
+  // TODO: Move to actions
   function handleAnswerSubmit() {
-    const lastQuestion = activeQuestionIndex === questions.length - 1;
+    const lastQuestion = activeQuestionIndex === template.questions.length - 1;
     if (lastQuestion) {
       onQuizSubmit();
     } else {
@@ -23,12 +30,15 @@ export function Quiz({
 
   return (
     <div>
-      <h1>{name}</h1>
+      <h1>{template.name}</h1>
       {submittedQuiz ? (
-        <CompletedQuestionList questions={questions} answers={answers} />
+        <CompletedQuestionList
+          questions={template.questions}
+          answers={answers}
+        />
       ) : (
         <ActiveQuestionList
-          questions={questions}
+          questions={template.questions}
           answers={answers}
           activeQuestionIndex={activeQuestionIndex}
           onAnswerChange={onAnswerChange}

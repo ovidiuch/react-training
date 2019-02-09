@@ -1,16 +1,23 @@
 import { connect } from "react-redux";
-import { changeAnswer, submitQuiz } from "../appState";
+import { fetchTemplate, changeAnswer, submitQuiz } from "../appState";
 import { Quiz } from "./Quiz";
 
-function mapStateToProps({ quizTemplate, answers, submittedQuiz }) {
+function mapStateToProps({
+  fetchingTemplate,
+  template,
+  answers,
+  submittedQuiz
+}) {
   return {
-    quizTemplate,
+    fetchingTemplate,
+    template,
     answers,
     submittedQuiz
   };
 }
 
 const mapDispatchToProps = {
+  onFetchTemplate: fetchTemplate,
   onAnswerChange: changeAnswer,
   onQuizSubmit: submitQuiz
 };
