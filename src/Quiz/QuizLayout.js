@@ -1,19 +1,27 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchTemplate } from "../actions";
+import { Header, Content, Title, Subtitle } from "../style";
 
 function QuizLayout({ children, fetchingTemplate, template, onFetchTemplate }) {
   useEffect(() => onFetchTemplate(), []);
 
   if (fetchingTemplate) {
-    return <div>Fetching template...</div>;
+    return (
+      <Header>
+        <Title>Loading quiz...</Title>
+      </Header>
+    );
   }
 
   return (
-    <div>
-      <h1>{template.name}</h1>
-      {children(template)}
-    </div>
+    <>
+      <Header>
+        <Title>{template.name}</Title>
+        <Subtitle>Please answer the following questions with care</Subtitle>
+      </Header>
+      <Content>{children(template)}</Content>
+    </>
   );
 }
 

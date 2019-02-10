@@ -7,6 +7,7 @@ import ReduxThunk from "redux-thunk";
 import { ActiveQuiz, CompletedQuiz } from "./Quiz";
 import { history } from "./router";
 import { appStateReducer } from "./state";
+import { GlobalStyle } from "./style";
 
 const store = createStore(
   appStateReducer,
@@ -16,6 +17,7 @@ const store = createStore(
 export default function App() {
   return (
     <Provider store={store}>
+      <GlobalStyle />
       <Router history={history}>
         <Switch>
           <Route path="/done" component={CompletedQuiz} />

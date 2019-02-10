@@ -6,17 +6,17 @@ TODO:
 - [x] lists and keys (map questions to list items)
 - [x] dom events (on input change)
 - [x] forms (submit answer on enter)
-- [x] conditional rendering (active past or future question)
+- [x] conditional rendering (optional answer paragraph & active past or future question)
 - [x] children (styled form before styled components)
 - [x] refs (to focus)
 - [x] routing (selected question)
 - [ ] context (dark/light theme)
-- [ ] styling
+- [x] styling
 - [x] redux
-- [ ] component lifecycle (fetch on did mount)
+- [x] component lifecycle (fetch on did mount)
 - [ ] async actions (persist answers & fetch template)
 - [ ] tests
-- [ ] composition (selected question with customizable button)
-- [ ] render props
+- [x] composition (QuizLayout sharing loading state for ActiveQuiz and CompletedQuiz)
+- [x] render props (template loaded and passed to parents by QuizLayout)
 - [ ] HOC
 - [ ] error boundaries

@@ -1,4 +1,12 @@
 import React from "react";
+import {
+  QuestionContainer,
+  QuestionTitle,
+  QuestionAnswer,
+  TextField,
+  ButtonContainer,
+  Button
+} from "../style";
 
 export function ActiveQuestion({
   question,
@@ -14,50 +22,45 @@ export function ActiveQuestion({
   }
 
   return (
-    <GreyForm
-      onSubmit={e => {
-        e.preventDefault();
-        onSubmit();
-      }}
-    >
-      <h2>{question}</h2>
-      <input
-        ref={handleInputRef}
-        type="text"
-        value={answer}
-        onChange={e => {
-          onChange(e.target.value);
+    <QuestionContainer active={true}>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          onSubmit();
         }}
-      />
-      <button type="submit" disabled={!answer}>
-        {buttonLabel}
-      </button>
-    </GreyForm>
-  );
-}
-
-function GreyForm({ children, ...formProps }) {
-  return (
-    <form {...formProps} style={{ background: "#e1e1e1", padding: 10 }}>
-      {children}
-    </form>
+      >
+        <QuestionTitle>{question}</QuestionTitle>
+        <TextField
+          ref={handleInputRef}
+          value={answer}
+          onChange={e => {
+            onChange(e.target.value);
+          }}
+        />
+        <ButtonContainer>
+          <Button type="submit" disabled={!answer}>
+            {buttonLabel}
+          </Button>
+        </ButtonContainer>
+      </form>
+    </QuestionContainer>
   );
 }
 
 export function PastQuestion({ question, answer, onSelect }) {
   return (
-    <div onClick={onSelect}>
-      <h2>{question}</h2>
-      <p>{answer}</p>
-    </div>
+    <QuestionContainer onClick={onSelect}>
+      <QuestionTitle>{question}</QuestionTitle>
+      {answer && <QuestionAnswer>{answer}</QuestionAnswer>}
+    </QuestionContainer>
   );
 }
 
 export function FutureQuestion({ question, answer }) {
   return (
-    <div style={{ opacity: 0.5 }}>
-      <h2>{question}</h2>
-      <p>{answer}</p>
-    </div>
+    <QuestionContainer future={true}>
+      <QuestionTitle>{question}</QuestionTitle>
+      {answer && <QuestionAnswer>{answer}</QuestionAnswer>}
+    </QuestionContainer>
   );
 }

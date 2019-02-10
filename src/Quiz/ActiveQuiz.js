@@ -4,6 +4,7 @@ import { selectQuestion, getIndexFromRouteParams } from "../router";
 import { changeAnswer, submitAnswer } from "../actions";
 import QuizLayout from "./QuizLayout";
 import { ActiveQuestion, FutureQuestion, PastQuestion } from "./Question";
+import { QuestionList } from "../style";
 
 function ActiveQuiz({ match, answers, onAnswerChange, onAnswerSubmit }) {
   const activeQuestionIndex = getIndexFromRouteParams(match.params);
@@ -11,7 +12,7 @@ function ActiveQuiz({ match, answers, onAnswerChange, onAnswerSubmit }) {
   return (
     <QuizLayout>
       {({ questions }) => (
-        <ul>
+        <QuestionList>
           {questions.map((question, questionIndex) => (
             <li key={questionIndex}>
               {questionIndex === activeQuestionIndex ? (
@@ -30,7 +31,7 @@ function ActiveQuiz({ match, answers, onAnswerChange, onAnswerSubmit }) {
                 <PastQuestion
                   question={question}
                   answer={answers[question]}
-                  onSelect={selectQuestion}
+                  onSelect={() => selectQuestion(questionIndex)}
                 />
               ) : (
                 <FutureQuestion
@@ -40,7 +41,7 @@ function ActiveQuiz({ match, answers, onAnswerChange, onAnswerSubmit }) {
               )}
             </li>
           ))}
-        </ul>
+        </QuestionList>
       )}
     </QuizLayout>
   );

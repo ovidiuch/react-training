@@ -2,13 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import QuizLayout from "./QuizLayout";
 import { FutureQuestion } from "./Question";
+import { QuestionList, SuccessMessage } from "../style";
 
 function CompletedQuiz({ answers }) {
   return (
     <QuizLayout>
       {({ questions }) => (
         <>
-          <ul>
+          <QuestionList>
             {questions.map((question, questionIndex) => (
               <li key={questionIndex}>
                 <FutureQuestion
@@ -17,8 +18,8 @@ function CompletedQuiz({ answers }) {
                 />
               </li>
             ))}
-          </ul>
-          <h2>Thanks for your time!</h2>
+          </QuestionList>
+          <SuccessMessage>Thank you for your time!</SuccessMessage>
         </>
       )}
     </QuizLayout>
