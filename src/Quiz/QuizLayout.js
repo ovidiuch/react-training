@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { fetchTemplate } from "../actions";
 import { Header, Content, Title, Subtitle } from "../style";
 
@@ -17,7 +18,9 @@ function QuizLayout({ children, fetchingTemplate, template, onFetchTemplate }) {
   return (
     <>
       <Header>
-        <Title>{template.name}</Title>
+        <Title>
+          <Link to="/">{template.name}</Link>
+        </Title>
         <Subtitle>Please answer the following questions with care</Subtitle>
       </Header>
       <Content>{children(template)}</Content>

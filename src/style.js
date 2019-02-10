@@ -66,6 +66,11 @@ export const Title = styled.h1`
   font-size: 40px;
   font-weight: 800;
   line-height: 1.25em;
+
+  a {
+    color: ${colorNeutral10};
+    text-decoration: none;
+  }
 `;
 
 export const Subtitle = styled.p`
