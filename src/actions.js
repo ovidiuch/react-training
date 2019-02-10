@@ -7,7 +7,8 @@ export function fetchTemplate() {
       // TODO: Fetch template from server
       dispatch(
         createReceiveTemplateAction({
-          name: "How was your day?",
+          title: "How was your day?",
+          subtitle: "Please answer the following questions with care",
           questions: [
             "Was it sunny?",
             "Was the food good?",

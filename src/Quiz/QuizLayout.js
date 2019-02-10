@@ -19,9 +19,9 @@ function QuizLayout({ children, fetchingTemplate, template, onFetchTemplate }) {
     <>
       <Header>
         <Title>
-          <Link to="/">{template.name}</Link>
+          <Link to="/">{template.title}</Link>
         </Title>
-        <Subtitle>Please answer the following questions with care</Subtitle>
+        <Subtitle>{template.subtitle}</Subtitle>
       </Header>
       <Content>{children(template)}</Content>
     </>

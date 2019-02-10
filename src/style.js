@@ -185,11 +185,11 @@ export const Button = styled.button`
 export const SuccessMessage = styled.div`
   width: calc(100% - 64px);
   margin: 16px 0 0 0;
-  padding: 12px 0;
+  padding: 16px 0;
   border-radius: 8px;
   background: ${colorSuccess9};
   color: ${colorSuccess3};
   font-size: 32px;
-  font-weight: 600;
+  font-weight: 800;
   text-align: center;
 `;
