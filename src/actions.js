@@ -1,4 +1,4 @@
-import { getTemplate } from "./db";
+import { getTemplate, submitAnswers } from "./db";
 import { storeAnswers } from "./localPersist";
 import { selectQuestion, showSubmittedPage } from "./router";
 
@@ -17,12 +17,12 @@ export function changeAnswer(question, answer) {
 }
 
 export function submitAnswer(activeQuestionIndex) {
-  return (dispatch, getState) => {
-    const { questions } = getState().template;
-    const lastQuestion = activeQuestionIndex === questions.length - 1;
+  return async (dispatch, getState) => {
+    const { template, answers } = getState();
+    const lastQuestion = activeQuestionIndex === template.questions.length - 1;
 
     if (lastQuestion) {
-      // TODO: Store answers in db
+      await submitAnswers(answers);
       showSubmittedPage();
     } else {
       selectQuestion(activeQuestionIndex + 1);

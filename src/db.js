@@ -17,3 +17,11 @@ export async function getTemplate(templateName) {
 
   return doc.data();
 }
+
+export async function submitAnswers(answers) {
+  await db.collection("responses").add({
+    templateId: process.env.REACT_APP_TEMPLATE_ID,
+    createdAt: new Date(),
+    answers
+  });
+}

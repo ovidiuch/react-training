@@ -14,7 +14,7 @@ TODO:
 - [x] styling
 - [x] redux
 - [x] component lifecycle (fetch on did mount)
-- [ ] async actions (persist answers & fetch template)
+- [x] async actions (persist answers & fetch template)
 - [ ] tests
 - [x] composition (QuizLayout sharing loading state for ActiveQuiz and CompletedQuiz)
 - [x] render props (template loaded and passed to parents by QuizLayout)
