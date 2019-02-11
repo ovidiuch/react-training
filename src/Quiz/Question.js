@@ -56,11 +56,10 @@ export function PastQuestion({ question, answer, onSelect }) {
   );
 }
 
-export function FutureQuestion({ question, answer }) {
+export function FutureQuestion({ question }) {
   return (
     <QuestionContainer future={true}>
       <QuestionTitle>{question}</QuestionTitle>
-      {answer && <QuestionAnswer>{answer}</QuestionAnswer>}
     </QuestionContainer>
   );
 }

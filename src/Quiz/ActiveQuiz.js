@@ -34,10 +34,7 @@ function ActiveQuiz({ match, answers, onAnswerChange, onAnswerSubmit }) {
                   onSelect={() => selectQuestion(questionIndex)}
                 />
               ) : (
-                <FutureQuestion
-                  question={question}
-                  answer={answers[question]}
-                />
+                <FutureQuestion question={question} />
               )}
             </li>
           ))}

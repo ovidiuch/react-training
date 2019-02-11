@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import QuizLayout from "./QuizLayout";
-import { FutureQuestion } from "./Question";
+import { PastQuestion } from "./Question";
 import { QuestionList, SuccessMessage } from "../style";
 
 function CompletedQuiz({ answers }) {
@@ -12,10 +12,7 @@ function CompletedQuiz({ answers }) {
           <QuestionList>
             {questions.map((question, questionIndex) => (
               <li key={questionIndex}>
-                <FutureQuestion
-                  question={question}
-                  answer={answers[question]}
-                />
+                <PastQuestion question={question} answer={answers[question]} />
               </li>
             ))}
           </QuestionList>

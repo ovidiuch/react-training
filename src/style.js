@@ -108,6 +108,7 @@ export const QuestionContainer = styled.div`
   background: ${props => (props.active ? colorPrimary10 : "transparent")};
   color: ${props => (props.active ? colorNeutral2 : colorNeutral3)};
   opacity: ${props => (props.future ? 0.5 : 1)};
+  cursor: ${props => (props.onClick ? "pointer" : "default")};
 `;
 
 export const QuestionTitle = styled.h2`
@@ -120,8 +121,9 @@ export const QuestionTitle = styled.h2`
 export const QuestionAnswer = styled.p`
   margin: 16px 0;
   padding: 0;
+  color: ${colorNeutral3};
   font-size: 16px;
-  color: ${colorNeutral2};
+  font-style: italic;
 
   &:before {
     content: "Your answer: ";
@@ -175,6 +177,7 @@ export const Button = styled.button`
 
   &:disabled {
     color: ${colorPrimary8};
+    cursor: not-allowed;
   }
 
   &:focus {
