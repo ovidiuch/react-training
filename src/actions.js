@@ -1,22 +1,11 @@
+import { getTemplate } from "./db";
 import { storeAnswers } from "./localPersist";
 import { selectQuestion, showSubmittedPage } from "./router";
 
 export function fetchTemplate() {
-  return dispatch => {
-    setTimeout(() => {
-      // TODO: Fetch template from server
-      dispatch(
-        createReceiveTemplateAction({
-          title: "How was your day?",
-          subtitle: "Please answer the following questions with care",
-          questions: [
-            "Was it sunny?",
-            "Was the food good?",
-            "Was everyone friendly?"
-          ]
-        })
-      );
-    }, 500);
+  return async dispatch => {
+    const template = await getTemplate(process.env.REACT_APP_TEMPLATE_ID);
+    dispatch(createReceiveTemplateAction(template));
   };
 }
 

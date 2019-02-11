@@ -5,7 +5,9 @@ import { fetchTemplate } from "../actions";
 import { Header, Content, Title, Subtitle } from "../style";
 
 function QuizLayout({ children, fetchingTemplate, template, onFetchTemplate }) {
-  useEffect(() => onFetchTemplate(), []);
+  useEffect(() => {
+    onFetchTemplate();
+  }, []);
 
   if (fetchingTemplate) {
     return (

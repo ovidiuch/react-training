@@ -87,7 +87,7 @@ export const Content = styled.div`
   flex-direction: column;
   align-items: center;
   max-width: 640px;
-  margin: -64px auto 32px auto;
+  margin: -64px auto 96px auto;
   padding: 24px 0;
   border-radius: 8px;
   background: #fff;
@@ -124,6 +124,8 @@ export const QuestionAnswer = styled.p`
   color: ${colorNeutral3};
   font-size: 16px;
   font-style: italic;
+  line-height: 1.5em;
+  white-space: pre-wrap;
 
   &:before {
     content: "Your answer: ";
@@ -135,7 +137,7 @@ export const TextField = styled.textarea`
   display: block;
   box-sizing: border-box;
   width: 100%;
-  height: 80px;
+  height: 112px;
   margin: 16px 0 0 0;
   padding: 8px;
   border: 3px solid ${colorNeutral8};
@@ -144,6 +146,7 @@ export const TextField = styled.textarea`
   color: ${colorNeutral3};
   font-family: ${fontFamily};
   font-size: 16px;
+  line-height: 1.4em;
   resize: none;
   outline: none;
   transition: border 0.4s;

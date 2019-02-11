@@ -15,6 +15,12 @@ export function ActiveQuestion({
   onChange,
   onSubmit
 }) {
+  function handleFormRef(formEl) {
+    if (formEl) {
+      formEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }
+
   function handleInputRef(inputEl) {
     if (inputEl) {
       inputEl.focus();
@@ -24,6 +30,7 @@ export function ActiveQuestion({
   return (
     <QuestionContainer active={true}>
       <form
+        ref={handleFormRef}
         onSubmit={e => {
           e.preventDefault();
           onSubmit();
