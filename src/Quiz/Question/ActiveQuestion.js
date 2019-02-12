@@ -1,12 +1,11 @@
 import React from "react";
 import {
+  Button,
+  ButtonContainer,
   QuestionContainer,
   QuestionTitle,
-  QuestionAnswer,
-  TextField,
-  ButtonContainer,
-  Button
-} from "../style";
+  TextField
+} from "../../style";
 
 export function ActiveQuestion({
   question,
@@ -50,23 +49,6 @@ export function ActiveQuestion({
           </Button>
         </ButtonContainer>
       </form>
-    </QuestionContainer>
-  );
-}
-
-export function PastQuestion({ question, answer, onSelect }) {
-  return (
-    <QuestionContainer onClick={onSelect}>
-      <QuestionTitle>{question}</QuestionTitle>
-      {answer && <QuestionAnswer>{answer}</QuestionAnswer>}
-    </QuestionContainer>
-  );
-}
-
-export function FutureQuestion({ question }) {
-  return (
-    <QuestionContainer future={true}>
-      <QuestionTitle>{question}</QuestionTitle>
     </QuestionContainer>
   );
 }
