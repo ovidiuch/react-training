@@ -5,40 +5,45 @@ import { history } from "./router";
 import { GlobalStyle, Header, Title, Subtitle } from "./style";
 import { ActiveQuiz, CompletedQuiz } from "./Quiz";
 
-export default function App({ store }) {
+export function App({ store }) {
   return (
     <ReactRedux.Provider store={store}>
       <GlobalStyle />
-      <ErrorHandler>
-        <Router history={history}>
-          <Switch>
-            <Route path="/done" component={CompletedQuiz} />
-            <Route path="/:index*" component={ActiveQuiz} />
-          </Switch>
-        </Router>
-      </ErrorHandler>
+      <Router history={history}>
+        <Switch>
+          <Route path="/done" component={CompletedQuiz} />
+          <Route path="/:index*" component={ActiveQuiz} />
+        </Switch>
+      </Router>
     </ReactRedux.Provider>
   );
 }
 
-class ErrorHandler extends React.Component {
-  state = { errored: false };
+export default withErrorHandler(App);
 
-  componentDidCatch(error, info) {
-    this.setState({ errored: true });
-    console.log(error, info);
-  }
+function withErrorHandler(Component) {
+  return class ErrorHandler extends React.Component {
+    state = { errored: false };
 
-  render() {
-    if (this.state.errored) {
-      return (
-        <Header>
-          <Title>Oops!</Title>
-          <Subtitle>Something went wrong :(</Subtitle>
-        </Header>
-      );
+    componentDidCatch(error, info) {
+      this.setState({ errored: true });
+      console.log(error, info);
     }
 
-    return this.props.children;
-  }
+    render() {
+      if (this.state.errored) {
+        return (
+          <>
+            <GlobalStyle />
+            <Header>
+              <Title>Oops!</Title>
+              <Subtitle>Something went wrong :(</Subtitle>
+            </Header>
+          </>
+        );
+      }
+
+      return <Component {...this.props} />;
+    }
+  };
 }
