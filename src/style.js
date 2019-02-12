@@ -2,38 +2,21 @@ import styled, { createGlobalStyle } from "styled-components";
 
 const fontFamily = `-apple-system, BlinkMacSystemFont, Ubuntu, "Helvetica Neue", Helvetica, sans-serif`;
 
-// const colorPrimary1 = "hsl(205, 100%, 21%)";
 const colorPrimary2 = "hsl(205, 87%, 29%)";
 const colorPrimary3 = "hsl(205, 82%, 33%)";
 const colorPrimary4 = "hsl(205, 76%, 39%)";
-// const colorPrimary5 = "hsl(205, 67%, 45%)";
 const colorPrimary6 = "hsl(205, 65%, 55%)";
-// const colorPrimary7 = "hsl(205, 74%, 65%)";
 const colorPrimary8 = "hsl(205, 84%, 74%)";
-// const colorPrimary9 = "hsl(205, 97%, 85%)";
 const colorPrimary10 = "hsl(205, 79%, 92%)";
 
-// const colorNeutral1 = "hsl(209, 61%, 16%)";
 const colorNeutral2 = "hsl(211, 39%, 23%)";
 const colorNeutral3 = "hsl(209, 34%, 30%)";
-// const colorNeutral4 = "hsl(209, 28%, 39%)";
-// const colorNeutral5 = "hsl(210, 22%, 49%)";
 const colorNeutral6 = "hsl(209, 23%, 60%)";
-// const colorNeutral7 = "hsl(211, 27%, 70%)";
 const colorNeutral8 = "hsl(210, 31%, 80%)";
-// const colorNeutral9 = "hsl(212, 33%, 89%)";
 const colorNeutral10 = "hsl(210, 36%, 96%)";
 
-// const colorSuccess1 = "hsl(81, 86%, 14%)";
-// const colorSuccess2 = "hsl(81, 78%, 21%)";
 const colorSuccess3 = "hsl(83, 74%, 27%)";
-// const colorSuccess4 = "hsl(83, 70%, 34%)";
-// const colorSuccess5 = "hsl(83, 64%, 42%)";
-// const colorSuccess6 = "hsl(83, 55%, 52%)";
-// const colorSuccess7 = "hsl(83, 63%, 61%)";
-// const colorSuccess8 = "hsl(83, 68%, 74%)";
 const colorSuccess9 = "hsl(84, 77%, 86%)";
-// const colorSuccess10 = "hsl(83, 88%, 94%)";
 
 export const GlobalStyle = createGlobalStyle`
   html {
