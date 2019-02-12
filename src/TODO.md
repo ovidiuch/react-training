@@ -20,3 +20,7 @@ TODO:
 - [x] render props (template loaded and passed to parents by QuizLayout)
 - [ ] HOC
 - [ ] error boundaries
+
+MISC:
+
+- [ ] Normalize default vs named exports

@@ -15,7 +15,7 @@ export function ActiveQuestion({
   onSubmit
 }) {
   function handleFormRef(formEl) {
-    if (formEl) {
+    if (formEl && formEl.scrollIntoView) {
       formEl.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   }
@@ -35,8 +35,11 @@ export function ActiveQuestion({
           onSubmit();
         }}
       >
-        <QuestionTitle>{question}</QuestionTitle>
+        <QuestionTitle>
+          <label htmlFor="active-question">{question}</label>
+        </QuestionTitle>
         <TextField
+          id="active-question"
           ref={handleInputRef}
           value={answer}
           onChange={e => {
