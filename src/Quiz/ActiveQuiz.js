@@ -6,7 +6,7 @@ import QuizLayout from "./QuizLayout";
 import { ActiveQuestion, FutureQuestion, PastQuestion } from "./Question";
 import { QuestionList } from "../style";
 
-export function ActiveQuiz({ match, answers, onAnswerChange, onAnswerSubmit }) {
+function ActiveQuiz({ match, answers, onAnswerChange, onAnswerSubmit }) {
   const activeQuestionIndex = getIndexFromRouteParams(match.params);
 
   return (

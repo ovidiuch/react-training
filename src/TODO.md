@@ -15,7 +15,7 @@ TODO:
 - [x] redux
 - [x] component lifecycle (fetch on did mount)
 - [x] async actions (persist answers & fetch template)
-- [ ] tests
+- [x] tests
 - [x] composition (QuizLayout sharing loading state for ActiveQuiz and CompletedQuiz)
 - [x] render props (template loaded and passed to parents by QuizLayout)
 - [ ] HOC
@@ -23,4 +23,4 @@ TODO:
 
 MISC:
 
-- [ ] Normalize default vs named exports
+- [x] Normalize default vs named exports

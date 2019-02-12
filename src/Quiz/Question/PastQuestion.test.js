@@ -1,6 +1,6 @@
 import React from "react";
 import ReactTestRenderer from "react-test-renderer";
-import { PastQuestion } from "./PastQuestion";
+import PastQuestion from "./PastQuestion";
 
 function getTestInstance(onSelect) {
   const testRenderer = ReactTestRenderer.create(

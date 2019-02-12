@@ -1,6 +1,6 @@
 import React from "react";
 import ReactTestRenderer from "react-test-renderer";
-import { FutureQuestion } from "./FutureQuestion";
+import FutureQuestion from "./FutureQuestion";
 
 it("renders question", () => {
   const testRenderer = ReactTestRenderer.create(

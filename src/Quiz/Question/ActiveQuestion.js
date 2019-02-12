@@ -7,7 +7,7 @@ import {
   TextField
 } from "../../style";
 
-export function ActiveQuestion({
+export default function ActiveQuestion({
   question,
   answer = "",
   buttonLabel,
