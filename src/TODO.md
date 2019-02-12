@@ -19,7 +19,7 @@ TODO:
 - [x] composition (QuizLayout sharing loading state for ActiveQuiz and CompletedQuiz)
 - [x] render props (template loaded and passed to parents by QuizLayout)
 - [ ] HOC
-- [ ] error boundaries
+- [x] error boundaries
 
 MISC:
 
