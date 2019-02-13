@@ -3,6 +3,7 @@ import { retrieveAnswers } from "./localPersist";
 const initialState = {
   template: {
     title: "How was your day?",
+    subtitle: "Please answer the following questions",
     questions: ["Was it sunny?", "Was the food good?", "Was everyone nice?"]
   },
   answers: retrieveAnswers()

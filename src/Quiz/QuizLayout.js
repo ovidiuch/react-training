@@ -9,7 +9,7 @@ export default function QuizLayout({ children, template }) {
         <Title>
           <Link to="/">{template.title}</Link>
         </Title>
-        <Subtitle>This is a quiz</Subtitle>
+        <Subtitle>{template.subtitle}</Subtitle>
       </Header>
       <Content>{children}</Content>
     </>
