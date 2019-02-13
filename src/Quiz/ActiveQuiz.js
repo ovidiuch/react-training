@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { ActiveQuestion, PastQuestion, FutureQuestion } from "./Question";
 
 export default function ActiveQuiz({
@@ -22,7 +23,9 @@ export default function ActiveQuiz({
 
   return (
     <div>
-      <h1>{template.title}</h1>
+      <h1>
+        <Link to="/">{template.title}</Link>
+      </h1>
       <ul>
         {template.questions.map((question, index) => (
           <li key={index}>
