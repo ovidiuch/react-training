@@ -1,12 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
+import { connect } from "react-redux";
 import { PastQuestion } from "./Question";
 import QuizLayout from "./QuizLayout";
 import { QuestionList, SuccessMessage } from "../style";
-import { AnswersContext } from "../answersContext";
 
-export default function DoneQuiz({ template }) {
-  const { answers } = useContext(AnswersContext);
+export default connect(mapStateToProps)(DoneQuiz);
 
+function mapStateToProps({ template, answers }) {
+  return { template, answers };
+}
+
+function DoneQuiz({ template, answers }) {
   return (
     <QuizLayout template={template}>
       <QuestionList>

@@ -1,42 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import * as ReactRedux from "react-redux";
 import { ActiveQuiz, DoneQuiz } from "./Quiz";
-import { retrieveAnswers, storeAnswers } from "./localPersist";
 import { GlobalStyle } from "./style";
-import { AnswersContext } from "./answersContext";
+import { configureStore } from "./store";
 
-const TEMPLATE = {
-  title: "How was your day?",
-  questions: ["Was it sunny?", "Was the food good?", "Was everyone nice?"]
-};
+const store = configureStore();
 
 function App() {
-  const [answers, setAnswers] = useState(retrieveAnswers());
-  const answersContextValue = {
-    answers,
-    onAnswerChange: (question, answer) => {
-      const newAnswers = { ...answers, [question]: answer };
-      setAnswers(newAnswers);
-      storeAnswers(newAnswers);
-    }
-  };
-
   return (
     <>
       <GlobalStyle />
-      <AnswersContext.Provider value={answersContextValue}>
+      <ReactRedux.Provider store={store}>
         <BrowserRouter>
           <Switch>
-            <Route
-              path="/done"
-              component={() => <DoneQuiz template={TEMPLATE} />}
-            />
+            <Route path="/done" component={() => <DoneQuiz />} />
             <Route
               path="/:index*"
               component={({ match, history }) => (
                 <ActiveQuiz
-                  template={TEMPLATE}
                   activeQuestionIndex={getIndexFromRouterParams(match.params)}
                   selectQuestion={index => history.push(`/${index}`)}
                   showDonePage={index => history.push(`/done`)}
@@ -45,7 +28,7 @@ function App() {
             />
           </Switch>
         </BrowserRouter>
-      </AnswersContext.Provider>
+      </ReactRedux.Provider>
     </>
   );
 }
