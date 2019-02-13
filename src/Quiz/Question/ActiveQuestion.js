@@ -31,7 +31,7 @@ export default function ActiveQuestion({
         ref={handleInputRef}
         type="text"
         value={answer || ""}
-        onChange={e => onChange(e.target.value)}
+        onChange={e => onChange(question, e.target.value)}
       />
       <button type="submit">Next</button>
     </form>

@@ -45,7 +45,7 @@ export default class Quiz extends React.Component {
                 <ActiveQuestion
                   question={question}
                   answer={answers[question]}
-                  onChange={answer => this.handleAnswerChange(question, answer)}
+                  onChange={this.handleAnswerChange}
                   onSubmit={this.handleAnswerSubmit}
                 />
               ) : index < activeQuestionIndex ? (
