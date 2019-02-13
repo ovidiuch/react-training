@@ -3,7 +3,6 @@ import { ActiveQuestion, PastQuestion, FutureQuestion } from "./Question";
 
 export default class Quiz extends React.Component {
   state = {
-    activeQuestionIndex: 0,
     answers: {}
   };
 
@@ -17,23 +16,20 @@ export default class Quiz extends React.Component {
   };
 
   handleAnswerSubmit = () => {
-    const { template } = this.props;
-    const { activeQuestionIndex } = this.state;
+    const { template, activeQuestionIndex, selectQuestion } = this.props;
     const isLastQuestion =
       activeQuestionIndex === template.questions.length - 1;
 
     if (isLastQuestion) {
       alert("Form submitted!");
     } else {
-      this.setState({
-        activeQuestionIndex: activeQuestionIndex + 1
-      });
+      selectQuestion(activeQuestionIndex + 1);
     }
   };
 
   render() {
-    const { template } = this.props;
-    const { activeQuestionIndex, answers } = this.state;
+    const { template, activeQuestionIndex } = this.props;
+    const { answers } = this.state;
 
     return (
       <div>
