@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route } from "react-router-dom";
-import Quiz from "./Quiz";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { ActiveQuiz, DoneQuiz } from "./Quiz";
 
 const TEMPLATE = {
   title: "How was your day?",
@@ -13,18 +13,25 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Route
-        path="/:index*"
-        component={({ match, history }) => (
-          <Quiz
-            template={TEMPLATE}
-            activeQuestionIndex={getIndexFromRouterParams(match.params)}
-            selectQuestion={index => history.push(`/${index}`)}
-            answers={answers}
-            setAnswers={setAnswers}
-          />
-        )}
-      />
+      <Switch>
+        <Route
+          path="/done"
+          component={() => <DoneQuiz template={TEMPLATE} answers={answers} />}
+        />
+        <Route
+          path="/:index*"
+          component={({ match, history }) => (
+            <ActiveQuiz
+              template={TEMPLATE}
+              activeQuestionIndex={getIndexFromRouterParams(match.params)}
+              selectQuestion={index => history.push(`/${index}`)}
+              showDonePage={index => history.push(`/done`)}
+              answers={answers}
+              setAnswers={setAnswers}
+            />
+          )}
+        />
+      </Switch>
     </BrowserRouter>
   );
 }
