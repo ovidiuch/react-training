@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route } from "react-router-dom";
 import Quiz from "./Quiz";
@@ -9,6 +9,8 @@ const TEMPLATE = {
 };
 
 function App() {
+  const [answers, setAnswers] = useState({});
+
   return (
     <BrowserRouter>
       <Route
@@ -18,6 +20,8 @@ function App() {
             template={TEMPLATE}
             activeQuestionIndex={getIndexFromRouterParams(match.params)}
             selectQuestion={index => history.push(`/${index}`)}
+            answers={answers}
+            setAnswers={setAnswers}
           />
         )}
       />
