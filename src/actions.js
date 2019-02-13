@@ -1,21 +1,13 @@
 import { storeAnswers } from "./localPersist";
+import { getTemplate } from "./db";
 
 export function fetchTemplate() {
   return async (dispatch, getState) => {
-    // Fake 1s delay
-    await new Promise(res => setTimeout(res, 1000));
+    const template = await getTemplate();
     dispatch({
       type: "RECEIVE_TEMPLATE",
       payload: {
-        template: {
-          title: "How was your day?",
-          subtitle: "Please answer the following questions",
-          questions: [
-            "Was it sunny?",
-            "Was the food good?",
-            "Was everyone nice?"
-          ]
-        }
+        template
       }
     });
   };
