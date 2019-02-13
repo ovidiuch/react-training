@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { PastQuestion } from "./Question";
 import QuizLayout from "./QuizLayout";
 import { QuestionList, SuccessMessage } from "../style";
+import { AnswersContext } from "../answersContext";
 
-export default function DoneQuiz({ template, answers }) {
+export default function DoneQuiz({ template }) {
+  const { answers } = useContext(AnswersContext);
+
   return (
     <QuizLayout template={template}>
       <QuestionList>

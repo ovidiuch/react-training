@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ActiveQuestion, PastQuestion, FutureQuestion } from "./Question";
 import QuizLayout from "./QuizLayout";
 import { QuestionList } from "../style";
+import { AnswersContext } from "../answersContext";
 
 export default function ActiveQuiz({
   template,
   activeQuestionIndex,
   selectQuestion,
-  showDonePage,
-  answers,
-  onAnswerChange
+  showDonePage
 }) {
+  const { answers, onAnswerChange } = useContext(AnswersContext);
+
   const handleAnswerSubmit = () => {
     const isLastQuestion =
       activeQuestionIndex === template.questions.length - 1;
