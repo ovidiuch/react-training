@@ -1,13 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Header, Content, Title, Subtitle } from "../style";
 
 export default function QuizLayout({ children, template }) {
   return (
-    <div>
-      <h1>
-        <Link to="/">{template.title}</Link>
-      </h1>
-      {children}
-    </div>
+    <>
+      <Header>
+        <Title>
+          <Link to="/">{template.title}</Link>
+        </Title>
+        <Subtitle>This is a quiz</Subtitle>
+      </Header>
+      <Content>{children}</Content>
+    </>
   );
 }

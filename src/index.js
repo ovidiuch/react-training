@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { ActiveQuiz, DoneQuiz } from "./Quiz";
 import { retrieveAnswers, storeAnswers } from "./localPersist";
+import { GlobalStyle } from "./style";
 
 const TEMPLATE = {
   title: "How was your day?",
@@ -19,27 +20,30 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route
-          path="/done"
-          component={() => <DoneQuiz template={TEMPLATE} answers={answers} />}
-        />
-        <Route
-          path="/:index*"
-          component={({ match, history }) => (
-            <ActiveQuiz
-              template={TEMPLATE}
-              activeQuestionIndex={getIndexFromRouterParams(match.params)}
-              selectQuestion={index => history.push(`/${index}`)}
-              showDonePage={index => history.push(`/done`)}
-              answers={answers}
-              onAnswerChange={handleAnswerChange}
-            />
-          )}
-        />
-      </Switch>
-    </BrowserRouter>
+    <>
+      <GlobalStyle />
+      <BrowserRouter>
+        <Switch>
+          <Route
+            path="/done"
+            component={() => <DoneQuiz template={TEMPLATE} answers={answers} />}
+          />
+          <Route
+            path="/:index*"
+            component={({ match, history }) => (
+              <ActiveQuiz
+                template={TEMPLATE}
+                activeQuestionIndex={getIndexFromRouterParams(match.params)}
+                selectQuestion={index => history.push(`/${index}`)}
+                showDonePage={index => history.push(`/done`)}
+                answers={answers}
+                onAnswerChange={handleAnswerChange}
+              />
+            )}
+          />
+        </Switch>
+      </BrowserRouter>
+    </>
   );
 }
 

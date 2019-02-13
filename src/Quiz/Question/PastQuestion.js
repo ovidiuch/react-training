@@ -1,10 +1,11 @@
 import React from "react";
+import { QuestionContainer, QuestionTitle, QuestionAnswer } from "../../style";
 
-export default function PastQuestion({ question, answer }) {
+export default function PastQuestion({ question, answer, onSelect }) {
   return (
-    <div>
-      <h2>{question}</h2>
-      <p>{answer}</p>
-    </div>
+    <QuestionContainer onClick={onSelect}>
+      <QuestionTitle>{question}</QuestionTitle>
+      <QuestionAnswer>{answer}</QuestionAnswer>
+    </QuestionContainer>
   );
 }

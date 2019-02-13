@@ -1,4 +1,11 @@
 import React from "react";
+import {
+  QuestionTitle,
+  QuestionContainer,
+  TextField,
+  Button,
+  ButtonContainer
+} from "../../style";
 
 export default function ActiveQuestion({
   question,
@@ -19,21 +26,24 @@ export default function ActiveQuestion({
   }
 
   return (
-    <form
-      ref={handleFormRef}
-      onSubmit={e => {
-        e.preventDefault();
-        onSubmit();
-      }}
-    >
-      <h2>{question}</h2>
-      <input
-        ref={handleInputRef}
-        type="text"
-        value={answer || ""}
-        onChange={e => onChange(question, e.target.value)}
-      />
-      <button type="submit">Next</button>
-    </form>
+    <QuestionContainer>
+      <form
+        ref={handleFormRef}
+        onSubmit={e => {
+          e.preventDefault();
+          onSubmit();
+        }}
+      >
+        <QuestionTitle>{question}</QuestionTitle>
+        <TextField
+          ref={handleInputRef}
+          value={answer || ""}
+          onChange={e => onChange(question, e.target.value)}
+        />
+        <ButtonContainer>
+          <Button type="submit">Next</Button>
+        </ButtonContainer>
+      </form>
+    </QuestionContainer>
   );
 }

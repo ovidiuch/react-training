@@ -1,6 +1,7 @@
 import React from "react";
 import { ActiveQuestion, PastQuestion, FutureQuestion } from "./Question";
 import QuizLayout from "./QuizLayout";
+import { QuestionList } from "../style";
 
 export default function ActiveQuiz({
   template,
@@ -23,7 +24,7 @@ export default function ActiveQuiz({
 
   return (
     <QuizLayout template={template}>
-      <ul>
+      <QuestionList>
         {template.questions.map((question, index) => (
           <li key={index}>
             {index === activeQuestionIndex ? (
@@ -34,13 +35,17 @@ export default function ActiveQuiz({
                 onSubmit={handleAnswerSubmit}
               />
             ) : index < activeQuestionIndex ? (
-              <PastQuestion question={question} answer={answers[question]} />
+              <PastQuestion
+                question={question}
+                answer={answers[question]}
+                onSelect={() => selectQuestion(index)}
+              />
             ) : (
               <FutureQuestion question={question} />
             )}
           </li>
         ))}
-      </ul>
+      </QuestionList>
     </QuizLayout>
   );
 }
