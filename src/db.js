@@ -7,8 +7,10 @@ firebase.initializeApp({
 });
 const db = firebase.firestore();
 
-export async function getTemplate(templateName) {
-  var docRef = db.collection("templates").doc(templateName);
+export async function getTemplate() {
+  var docRef = db
+    .collection("templates")
+    .doc(process.env.REACT_APP_TEMPLATE_ID);
   const doc = await docRef.get();
 
   if (!doc.exists) {
