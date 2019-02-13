@@ -7,12 +7,8 @@ export default function ActiveQuiz({
   selectQuestion,
   showDonePage,
   answers,
-  setAnswers
+  onAnswerChange
 }) {
-  const handleAnswerChange = (question, answer) => {
-    setAnswers({ ...answers, [question]: answer });
-  };
-
   const handleAnswerSubmit = () => {
     const isLastQuestion =
       activeQuestionIndex === template.questions.length - 1;
@@ -34,7 +30,7 @@ export default function ActiveQuiz({
               <ActiveQuestion
                 question={question}
                 answer={answers[question]}
-                onChange={handleAnswerChange}
+                onChange={onAnswerChange}
                 onSubmit={handleAnswerSubmit}
               />
             ) : index < activeQuestionIndex ? (

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { ActiveQuiz, DoneQuiz } from "./Quiz";
+import { retrieveAnswers, storeAnswers } from "./localPersist";
 
 const TEMPLATE = {
   title: "How was your day?",
@@ -9,7 +10,13 @@ const TEMPLATE = {
 };
 
 function App() {
-  const [answers, setAnswers] = useState({});
+  const [answers, setAnswers] = useState(retrieveAnswers());
+
+  const handleAnswerChange = (question, answer) => {
+    const newAnswers = { ...answers, [question]: answer };
+    setAnswers(newAnswers);
+    storeAnswers(newAnswers);
+  };
 
   return (
     <BrowserRouter>
@@ -27,7 +34,7 @@ function App() {
               selectQuestion={index => history.push(`/${index}`)}
               showDonePage={index => history.push(`/done`)}
               answers={answers}
-              setAnswers={setAnswers}
+              onAnswerChange={handleAnswerChange}
             />
           )}
         />
