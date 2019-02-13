@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { ActiveQuestion, PastQuestion, FutureQuestion } from "./Question";
+import QuizLayout from "./QuizLayout";
 
 export default function ActiveQuiz({
   template,
@@ -22,10 +22,7 @@ export default function ActiveQuiz({
   };
 
   return (
-    <div>
-      <h1>
-        <Link to="/">{template.title}</Link>
-      </h1>
+    <QuizLayout template={template}>
       <ul>
         {template.questions.map((question, index) => (
           <li key={index}>
@@ -44,6 +41,6 @@ export default function ActiveQuiz({
           </li>
         ))}
       </ul>
-    </div>
+    </QuizLayout>
   );
 }

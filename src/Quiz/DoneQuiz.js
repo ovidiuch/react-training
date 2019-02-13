@@ -1,10 +1,10 @@
 import React from "react";
 import { PastQuestion } from "./Question";
+import QuizLayout from "./QuizLayout";
 
 export default function DoneQuiz({ template, answers }) {
   return (
-    <div>
-      <h1>{template.title}</h1>
+    <QuizLayout template={template}>
       <ul>
         {template.questions.map((question, index) => (
           <li key={index}>
@@ -15,6 +15,6 @@ export default function DoneQuiz({ template, answers }) {
       <p>
         <strong>Thank you for your time!</strong>
       </p>
-    </div>
+    </QuizLayout>
   );
 }
