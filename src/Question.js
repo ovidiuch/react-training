@@ -7,7 +7,12 @@ export function ActiveQuestion({
   onAnswerSubmit
 }) {
   return (
-    <form onSubmit={onAnswerSubmit}>
+    <form
+      onSubmit={e => {
+        e.preventDefault();
+        onAnswerSubmit();
+      }}
+    >
       <h4>{question}</h4>
       <input
         ref={handleInputEl}
