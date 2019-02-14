@@ -4,10 +4,7 @@ import { ActiveQuestion, FutureQuestion, PastQuestion } from "./Question";
 
 export function DoneQuiz({ template, answers }) {
   return (
-    <div>
-      <h1>
-        <Link to="/">{template.title}</Link>
-      </h1>
+    <QuizLayout template={template}>
       <ul>
         {template.questions.map((question, index) => {
           return (
@@ -18,7 +15,7 @@ export function DoneQuiz({ template, answers }) {
         })}
       </ul>
       <h2>Thank you for your time!</h2>
-    </div>
+    </QuizLayout>
   );
 }
 
@@ -31,10 +28,7 @@ export function ActiveQuiz({
   onAnswerSubmit
 }) {
   return (
-    <div>
-      <h1>
-        <Link to="/">{template.title}</Link>
-      </h1>
+    <QuizLayout template={template}>
       <ul>
         {template.questions.map((question, index) => {
           const humanIndex = index + 1;
@@ -60,6 +54,17 @@ export function ActiveQuiz({
           );
         })}
       </ul>
+    </QuizLayout>
+  );
+}
+
+function QuizLayout({ children, template }) {
+  return (
+    <div>
+      <h1>
+        <Link to="/">{template.title}</Link>
+      </h1>
+      {children}
     </div>
   );
 }
