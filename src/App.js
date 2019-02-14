@@ -4,6 +4,7 @@ import { ActiveQuiz, DoneQuiz } from "./Quiz";
 import { retrieveAnswers, storeAnswers } from "./localPersist";
 import { history } from "./router";
 import { GlobalStyle } from "./style";
+import { AppContext } from "./context";
 
 const QUIZ = {
   title: "How was your day?",
@@ -13,25 +14,25 @@ const QUIZ = {
 
 export default function App() {
   const [answers, setAnswers] = useState(retrieveAnswers());
-
-  const handleAnswerChange = (question, answer) => {
-    const newAnswers = {
-      ...answers,
-      [question]: answer
-    };
-    setAnswers(newAnswers);
-    storeAnswers(newAnswers);
+  const appContextValue = {
+    template: QUIZ,
+    answers,
+    setAnswers: (question, answer) => {
+      const newAnswers = {
+        ...answers,
+        [question]: answer
+      };
+      setAnswers(newAnswers);
+      storeAnswers(newAnswers);
+    }
   };
 
   return (
-    <>
+    <AppContext.Provider value={appContextValue}>
       <GlobalStyle />
       <Router history={history}>
         <Switch>
-          <Route
-            path="/done"
-            component={() => <DoneQuiz template={QUIZ} answers={answers} />}
-          />
+          <Route path="/done" component={() => <DoneQuiz />} />
           <Route
             path="/:index*"
             component={({ history, match }) => {
@@ -49,13 +50,10 @@ export default function App() {
 
               return (
                 <ActiveQuiz
-                  template={QUIZ}
-                  answers={answers}
                   activeQuestionIndex={activeQuestionIndex}
                   setActiveQuestionIndex={index => {
                     history.push(`/${index}`);
                   }}
-                  onAnswerChange={handleAnswerChange}
                   onAnswerSubmit={handleAnswerSubmit}
                 />
               );
@@ -63,7 +61,7 @@ export default function App() {
           />
         </Switch>
       </Router>
-    </>
+    </AppContext.Provider>
   );
 }
 

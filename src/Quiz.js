@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ActiveQuestion, FutureQuestion, PastQuestion } from "./Question";
 import {
@@ -9,8 +9,11 @@ import {
   QuestionList,
   SuccessMessage
 } from "./style";
+import { AppContext } from "./context";
 
-export function DoneQuiz({ template, answers }) {
+export function DoneQuiz() {
+  const { template, answers } = useContext(AppContext);
+
   return (
     <QuizLayout template={template}>
       <QuestionList>
@@ -28,13 +31,12 @@ export function DoneQuiz({ template, answers }) {
 }
 
 export function ActiveQuiz({
-  template,
-  answers,
   activeQuestionIndex,
   setActiveQuestionIndex,
-  onAnswerChange,
   onAnswerSubmit
 }) {
+  const { template, answers, setAnswers } = useContext(AppContext);
+
   return (
     <QuizLayout template={template}>
       <QuestionList>
@@ -46,7 +48,7 @@ export function ActiveQuiz({
                 <ActiveQuestion
                   question={question}
                   answer={answers[question]}
-                  onAnswerChange={onAnswerChange}
+                  onAnswerChange={setAnswers}
                   onAnswerSubmit={onAnswerSubmit}
                 />
               ) : humanIndex < activeQuestionIndex ? (
