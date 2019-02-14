@@ -13,8 +13,8 @@ import { AppContext } from "./context";
 
 export function DoneQuiz() {
   return (
-    <QuizLayout>
-      {({ template, answers }) => (
+    <QuizLayout
+      content={({ template, answers }) => (
         <>
           <QuestionList>
             {template.questions.map((question, index) => {
@@ -31,7 +31,7 @@ export function DoneQuiz() {
           <SuccessMessage>Thank you for your time!</SuccessMessage>
         </>
       )}
-    </QuizLayout>
+    />
   );
 }
 
@@ -41,8 +41,8 @@ export function ActiveQuiz({
   onAnswerSubmit
 }) {
   return (
-    <QuizLayout>
-      {({ template, answers, setAnswers }) => (
+    <QuizLayout
+      content={({ template, answers, setAnswers }) => (
         <QuestionList>
           {template.questions.map((question, index) => {
             const humanIndex = index + 1;
@@ -69,11 +69,11 @@ export function ActiveQuiz({
           })}
         </QuestionList>
       )}
-    </QuizLayout>
+    />
   );
 }
 
-function QuizLayout({ children }) {
+function QuizLayout({ content }) {
   const appContextValue = useContext(AppContext);
   const { template } = appContextValue;
 
@@ -85,7 +85,7 @@ function QuizLayout({ children }) {
         </Title>
         <Subtitle>{template.subtitle}</Subtitle>
       </Header>
-      <Content>{children(appContextValue)}</Content>
+      <Content>{content(appContextValue)}</Content>
     </>
   );
 }
