@@ -73,7 +73,7 @@ export function ActiveQuiz({
   );
 }
 
-function QuizLayout({ content }) {
+export function QuizLayout({ content }) {
   const appContextValue = useContext(AppContext);
   const { template } = appContextValue;
 

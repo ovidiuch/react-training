@@ -5,6 +5,7 @@ import { retrieveAnswers, storeAnswers } from "./localPersist";
 import { history } from "./router";
 import { GlobalStyle } from "./style";
 import { AppContext } from "./context";
+import ErrorHandler from "./ErrorHandler";
 
 const QUIZ = {
   title: "How was your day?",
@@ -28,40 +29,42 @@ export default function App() {
   };
 
   return (
-    <AppContext.Provider value={appContextValue}>
-      <GlobalStyle />
-      <Router history={history}>
-        <Switch>
-          <Route path="/done" component={() => <DoneQuiz />} />
-          <Route
-            path="/:index*"
-            component={({ history, match }) => {
-              const activeQuestionIndex = getQuestionIndexFromRouteParams(
-                match.params
-              );
+    <ErrorHandler>
+      <AppContext.Provider value={appContextValue}>
+        <GlobalStyle />
+        <Router history={history}>
+          <Switch>
+            <Route path="/done" component={() => <DoneQuiz />} />
+            <Route
+              path="/:index*"
+              component={({ history, match }) => {
+                const activeQuestionIndex = getQuestionIndexFromRouteParams(
+                  match.params
+                );
 
-              const handleAnswerSubmit = () => {
-                if (activeQuestionIndex === QUIZ.questions.length) {
-                  history.push("/done");
-                } else {
-                  history.push(`/${activeQuestionIndex + 1}`);
-                }
-              };
+                const handleAnswerSubmit = () => {
+                  if (activeQuestionIndex === QUIZ.questions.length) {
+                    history.push("/done");
+                  } else {
+                    history.push(`/${activeQuestionIndex + 1}`);
+                  }
+                };
 
-              return (
-                <ActiveQuiz
-                  activeQuestionIndex={activeQuestionIndex}
-                  setActiveQuestionIndex={index => {
-                    history.push(`/${index}`);
-                  }}
-                  onAnswerSubmit={handleAnswerSubmit}
-                />
-              );
-            }}
-          />
-        </Switch>
-      </Router>
-    </AppContext.Provider>
+                return (
+                  <ActiveQuiz
+                    activeQuestionIndex={activeQuestionIndex}
+                    setActiveQuestionIndex={index => {
+                      history.push(`/${index}`);
+                    }}
+                    onAnswerSubmit={handleAnswerSubmit}
+                  />
+                );
+              }}
+            />
+          </Switch>
+        </Router>
+      </AppContext.Provider>
+    </ErrorHandler>
   );
 }
 
