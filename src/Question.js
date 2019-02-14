@@ -33,9 +33,9 @@ const handleInputEl = inputEl => {
   }
 };
 
-export function PastQuestion({ question, answer }) {
+export function PastQuestion({ question, answer, onSelect }) {
   return (
-    <div>
+    <div onClick={onSelect}>
       <h4>{question}</h4>
       <p>{answer}</p>
     </div>

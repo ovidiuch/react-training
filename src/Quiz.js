@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { ActiveQuestion, FutureQuestion, PastQuestion } from "./Question";
 import { retrieveAnswers, storeAnswers } from "./localPersist";
 
@@ -24,7 +25,9 @@ export default function Quiz({
 
   return (
     <div>
-      <h1>{template.title}</h1>
+      <h1>
+        <Link to="/">{template.title}</Link>
+      </h1>
       <ul>
         {template.questions.map((question, index) => {
           const humanIndex = index + 1;
@@ -38,7 +41,11 @@ export default function Quiz({
                   onAnswerSubmit={handleAnswerSubmit}
                 />
               ) : humanIndex < activeQuestionIndex ? (
-                <PastQuestion question={question} answer={answers[question]} />
+                <PastQuestion
+                  question={question}
+                  answer={answers[question]}
+                  onSelect={() => setActiveQuestionIndex(humanIndex)}
+                />
               ) : (
                 <FutureQuestion question={question} />
               )}
