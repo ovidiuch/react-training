@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ActiveQuestion, FutureQuestion, PastQuestion } from "./Question";
+import { Header, Content, Title, QuestionList, SuccessMessage } from "./style";
 
 export function DoneQuiz({ template, answers }) {
   return (
     <QuizLayout template={template}>
-      <ul>
+      <QuestionList>
         {template.questions.map((question, index) => {
           return (
             <li key={index}>
@@ -13,8 +14,8 @@ export function DoneQuiz({ template, answers }) {
             </li>
           );
         })}
-      </ul>
-      <h2>Thank you for your time!</h2>
+      </QuestionList>
+      <SuccessMessage>Thank you for your time!</SuccessMessage>
     </QuizLayout>
   );
 }
@@ -29,7 +30,7 @@ export function ActiveQuiz({
 }) {
   return (
     <QuizLayout template={template}>
-      <ul>
+      <QuestionList>
         {template.questions.map((question, index) => {
           const humanIndex = index + 1;
           return (
@@ -53,7 +54,7 @@ export function ActiveQuiz({
             </li>
           );
         })}
-      </ul>
+      </QuestionList>
     </QuizLayout>
   );
 }
@@ -61,10 +62,12 @@ export function ActiveQuiz({
 function QuizLayout({ children, template }) {
   return (
     <>
-      <h1>
-        <Link to="/">{template.title}</Link>
-      </h1>
-      {children}
+      <Header>
+        <Title>
+          <Link to="/">{template.title}</Link>
+        </Title>
+      </Header>
+      <Content>{children}</Content>
     </>
   );
 }

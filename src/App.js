@@ -3,6 +3,7 @@ import { Router, Switch, Route } from "react-router-dom";
 import { ActiveQuiz, DoneQuiz } from "./Quiz";
 import { retrieveAnswers, storeAnswers } from "./localPersist";
 import { history } from "./router";
+import { GlobalStyle } from "./style";
 
 const QUIZ = {
   title: "How was your day?",
@@ -22,43 +23,46 @@ export default function App() {
   };
 
   return (
-    <Router history={history}>
-      <Switch>
-        <Route
-          path="/done"
-          component={() => <DoneQuiz template={QUIZ} answers={answers} />}
-        />
-        <Route
-          path="/:index*"
-          component={({ history, match }) => {
-            const activeQuestionIndex = getQuestionIndexFromRouteParams(
-              match.params
-            );
+    <>
+      <GlobalStyle />
+      <Router history={history}>
+        <Switch>
+          <Route
+            path="/done"
+            component={() => <DoneQuiz template={QUIZ} answers={answers} />}
+          />
+          <Route
+            path="/:index*"
+            component={({ history, match }) => {
+              const activeQuestionIndex = getQuestionIndexFromRouteParams(
+                match.params
+              );
 
-            const handleAnswerSubmit = () => {
-              if (activeQuestionIndex === QUIZ.questions.length) {
-                history.push("/done");
-              } else {
-                history.push(`/${activeQuestionIndex + 1}`);
-              }
-            };
+              const handleAnswerSubmit = () => {
+                if (activeQuestionIndex === QUIZ.questions.length) {
+                  history.push("/done");
+                } else {
+                  history.push(`/${activeQuestionIndex + 1}`);
+                }
+              };
 
-            return (
-              <ActiveQuiz
-                template={QUIZ}
-                answers={answers}
-                activeQuestionIndex={activeQuestionIndex}
-                setActiveQuestionIndex={index => {
-                  history.push(`/${index}`);
-                }}
-                onAnswerChange={handleAnswerChange}
-                onAnswerSubmit={handleAnswerSubmit}
-              />
-            );
-          }}
-        />
-      </Switch>
-    </Router>
+              return (
+                <ActiveQuiz
+                  template={QUIZ}
+                  answers={answers}
+                  activeQuestionIndex={activeQuestionIndex}
+                  setActiveQuestionIndex={index => {
+                    history.push(`/${index}`);
+                  }}
+                  onAnswerChange={handleAnswerChange}
+                  onAnswerSubmit={handleAnswerSubmit}
+                />
+              );
+            }}
+          />
+        </Switch>
+      </Router>
+    </>
   );
 }
 

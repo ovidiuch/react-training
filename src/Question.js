@@ -1,4 +1,12 @@
 import React from "react";
+import {
+  QuestionContainer,
+  QuestionTitle,
+  TextField,
+  Button,
+  QuestionAnswer,
+  ButtonContainer
+} from "./style";
 
 export function ActiveQuestion({
   question,
@@ -7,23 +15,26 @@ export function ActiveQuestion({
   onAnswerSubmit
 }) {
   return (
-    <form
-      onSubmit={e => {
-        e.preventDefault();
-        onAnswerSubmit();
-      }}
-    >
-      <h4>{question}</h4>
-      <input
-        ref={handleInputEl}
-        type="text"
-        value={answer || ""}
-        onChange={e => {
-          onAnswerChange(question, e.target.value);
+    <QuestionContainer active={true}>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          onAnswerSubmit();
         }}
-      />
-      <button type="submit">Next</button>
-    </form>
+      >
+        <QuestionTitle>{question}</QuestionTitle>
+        <TextField
+          ref={handleInputEl}
+          value={answer || ""}
+          onChange={e => {
+            onAnswerChange(question, e.target.value);
+          }}
+        />
+        <ButtonContainer>
+          <Button type="submit">Next</Button>
+        </ButtonContainer>
+      </form>
+    </QuestionContainer>
   );
 }
 
@@ -35,13 +46,17 @@ const handleInputEl = inputEl => {
 
 export function PastQuestion({ question, answer, onSelect }) {
   return (
-    <div onClick={onSelect}>
-      <h4>{question}</h4>
-      <p>{answer}</p>
-    </div>
+    <QuestionContainer onClick={onSelect}>
+      <QuestionTitle>{question}</QuestionTitle>
+      <QuestionAnswer>{answer}</QuestionAnswer>
+    </QuestionContainer>
   );
 }
 
 export function FutureQuestion({ question }) {
-  return <h4 style={{ opacity: 0.5 }}>{question}</h4>;
+  return (
+    <QuestionContainer future={true}>
+      <QuestionTitle>{question}</QuestionTitle>
+    </QuestionContainer>
+  );
 }

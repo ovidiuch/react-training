@@ -22,8 +22,8 @@ export const GlobalStyle = createGlobalStyle`
   html {
     font-family: ${fontFamily};
     font-size: 16px;
-    font-smooth:always;
-    -webkit-font-smoothing:antialiased;
+    font-smooth: always;
+    -webkit-font-smoothing: antialiased;
     background: ${colorNeutral10};
     color: ${colorNeutral3};
   }
