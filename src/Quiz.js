@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { ActiveQuestion, FutureQuestion, PastQuestion } from "./Question";
 
-export default function Quiz({ template }) {
-  const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
+export default function Quiz({
+  template,
+  activeQuestionIndex,
+  setActiveQuestionIndex
+}) {
   const [answers, setAnswers] = useState({});
 
   const handleAnswerChange = (question, answer) => {

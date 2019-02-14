@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
 import Quiz from "./Quiz";
 
 const QUIZ = {
@@ -7,5 +8,24 @@ const QUIZ = {
 };
 
 export default function App() {
-  return <Quiz template={QUIZ} />;
+  return (
+    <BrowserRouter>
+      <Route
+        path="/:index*"
+        component={({ history, match }) => (
+          <Quiz
+            template={QUIZ}
+            activeQuestionIndex={getQuestionIndexFromRouteParams(match.params)}
+            setActiveQuestionIndex={index => {
+              history.push(`/${index}`);
+            }}
+          />
+        )}
+      />
+    </BrowserRouter>
+  );
+}
+
+function getQuestionIndexFromRouteParams({ index }) {
+  return index !== undefined ? parseInt(index, 10) : 0;
 }
