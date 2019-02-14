@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import { ActiveQuestion, FutureQuestion, PastQuestion } from "./Question";
+import { retrieveAnswers, storeAnswers } from "./localPersist";
 
 export default function Quiz({
   template,
   activeQuestionIndex,
   setActiveQuestionIndex
 }) {
-  const [answers, setAnswers] = useState({});
+  const [answers, setAnswers] = useState(retrieveAnswers());
 
   const handleAnswerChange = (question, answer) => {
-    setAnswers({
+    const newAnswers = {
       ...answers,
       [question]: answer
-    });
+    };
+    setAnswers(newAnswers);
+    storeAnswers(newAnswers);
   };
 
   const handleAnswerSubmit = () => {
