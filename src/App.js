@@ -27,5 +27,5 @@ export default function App() {
 }
 
 function getQuestionIndexFromRouteParams({ index }) {
-  return index !== undefined ? parseInt(index, 10) : 0;
+  return index !== undefined ? parseInt(index, 10) : 1;
 }

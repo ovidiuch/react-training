@@ -26,22 +26,25 @@ export default function Quiz({
     <div>
       <h1>{template.title}</h1>
       <ul>
-        {template.questions.map((question, index) => (
-          <li key={index}>
-            {index === activeQuestionIndex ? (
-              <ActiveQuestion
-                question={question}
-                answer={answers[question]}
-                onAnswerChange={handleAnswerChange}
-                onAnswerSubmit={handleAnswerSubmit}
-              />
-            ) : index < activeQuestionIndex ? (
-              <PastQuestion question={question} answer={answers[question]} />
-            ) : (
-              <FutureQuestion question={question} />
-            )}
-          </li>
-        ))}
+        {template.questions.map((question, index) => {
+          const humanIndex = index + 1;
+          return (
+            <li key={index}>
+              {humanIndex === activeQuestionIndex ? (
+                <ActiveQuestion
+                  question={question}
+                  answer={answers[question]}
+                  onAnswerChange={handleAnswerChange}
+                  onAnswerSubmit={handleAnswerSubmit}
+                />
+              ) : humanIndex < activeQuestionIndex ? (
+                <PastQuestion question={question} answer={answers[question]} />
+              ) : (
+                <FutureQuestion question={question} />
+              )}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
