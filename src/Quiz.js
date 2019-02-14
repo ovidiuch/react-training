@@ -1,28 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { ActiveQuestion, FutureQuestion, PastQuestion } from "./Question";
-import { retrieveAnswers, storeAnswers } from "./localPersist";
 
-export default function Quiz({
+export function DoneQuiz({ template, answers }) {
+  return (
+    <div>
+      <h1>
+        <Link to="/">{template.title}</Link>
+      </h1>
+      <ul>
+        {template.questions.map((question, index) => {
+          return (
+            <li key={index}>
+              <PastQuestion question={question} answer={answers[question]} />
+            </li>
+          );
+        })}
+      </ul>
+      <h2>Thank you for your time!</h2>
+    </div>
+  );
+}
+
+export function ActiveQuiz({
   template,
+  answers,
   activeQuestionIndex,
-  setActiveQuestionIndex
+  setActiveQuestionIndex,
+  onAnswerChange,
+  onAnswerSubmit
 }) {
-  const [answers, setAnswers] = useState(retrieveAnswers());
-
-  const handleAnswerChange = (question, answer) => {
-    const newAnswers = {
-      ...answers,
-      [question]: answer
-    };
-    setAnswers(newAnswers);
-    storeAnswers(newAnswers);
-  };
-
-  const handleAnswerSubmit = () => {
-    setActiveQuestionIndex(activeQuestionIndex + 1);
-  };
-
   return (
     <div>
       <h1>
@@ -37,8 +44,8 @@ export default function Quiz({
                 <ActiveQuestion
                   question={question}
                   answer={answers[question]}
-                  onAnswerChange={handleAnswerChange}
-                  onAnswerSubmit={handleAnswerSubmit}
+                  onAnswerChange={onAnswerChange}
+                  onAnswerSubmit={onAnswerSubmit}
                 />
               ) : humanIndex < activeQuestionIndex ? (
                 <PastQuestion

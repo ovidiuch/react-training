@@ -1,6 +1,8 @@
-import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
-import Quiz from "./Quiz";
+import React, { useState } from "react";
+import { Router, Switch, Route } from "react-router-dom";
+import { ActiveQuiz, DoneQuiz } from "./Quiz";
+import { retrieveAnswers, storeAnswers } from "./localPersist";
+import { history } from "./router";
 
 const QUIZ = {
   title: "How was your day?",
@@ -8,21 +10,55 @@ const QUIZ = {
 };
 
 export default function App() {
+  const [answers, setAnswers] = useState(retrieveAnswers());
+
+  const handleAnswerChange = (question, answer) => {
+    const newAnswers = {
+      ...answers,
+      [question]: answer
+    };
+    setAnswers(newAnswers);
+    storeAnswers(newAnswers);
+  };
+
   return (
-    <BrowserRouter>
-      <Route
-        path="/:index*"
-        component={({ history, match }) => (
-          <Quiz
-            template={QUIZ}
-            activeQuestionIndex={getQuestionIndexFromRouteParams(match.params)}
-            setActiveQuestionIndex={index => {
-              history.push(`/${index}`);
-            }}
-          />
-        )}
-      />
-    </BrowserRouter>
+    <Router history={history}>
+      <Switch>
+        <Route
+          path="/done"
+          component={() => <DoneQuiz template={QUIZ} answers={answers} />}
+        />
+        <Route
+          path="/:index*"
+          component={({ history, match }) => {
+            const activeQuestionIndex = getQuestionIndexFromRouteParams(
+              match.params
+            );
+
+            const handleAnswerSubmit = () => {
+              if (activeQuestionIndex === QUIZ.questions.length) {
+                history.push("/done");
+              } else {
+                history.push(`/${activeQuestionIndex + 1}`);
+              }
+            };
+
+            return (
+              <ActiveQuiz
+                template={QUIZ}
+                answers={answers}
+                activeQuestionIndex={activeQuestionIndex}
+                setActiveQuestionIndex={index => {
+                  history.push(`/${index}`);
+                }}
+                onAnswerChange={handleAnswerChange}
+                onAnswerSubmit={handleAnswerSubmit}
+              />
+            );
+          }}
+        />
+      </Switch>
+    </Router>
   );
 }
 
