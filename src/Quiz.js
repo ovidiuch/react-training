@@ -1,7 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ActiveQuestion, FutureQuestion, PastQuestion } from "./Question";
-import { Header, Content, Title, QuestionList, SuccessMessage } from "./style";
+import {
+  Header,
+  Content,
+  Title,
+  Subtitle,
+  QuestionList,
+  SuccessMessage
+} from "./style";
 
 export function DoneQuiz({ template, answers }) {
   return (
@@ -66,6 +73,7 @@ function QuizLayout({ children, template }) {
         <Title>
           <Link to="/">{template.title}</Link>
         </Title>
+        <Subtitle>{template.subtitle}</Subtitle>
       </Header>
       <Content>{children}</Content>
     </>

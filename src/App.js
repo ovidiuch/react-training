@@ -7,6 +7,7 @@ import { GlobalStyle } from "./style";
 
 const QUIZ = {
   title: "How was your day?",
+  subtitle: "Please answer these questions",
   questions: ["Was it sunny?", "Was the food good?", "Was everyone friendly?"]
 };
 
