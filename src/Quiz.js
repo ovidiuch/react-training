@@ -60,11 +60,11 @@ export function ActiveQuiz({
 
 function QuizLayout({ children, template }) {
   return (
-    <div>
+    <>
       <h1>
         <Link to="/">{template.title}</Link>
       </h1>
       {children}
-    </div>
+    </>
   );
 }
