@@ -10,7 +10,7 @@ import {
 
 export function ActiveQuestion({
   question,
-  answer,
+  answer = "",
   onAnswerChange,
   onAnswerSubmit
 }) {
@@ -25,13 +25,15 @@ export function ActiveQuestion({
         <QuestionTitle>{question}</QuestionTitle>
         <TextField
           ref={handleInputEl}
-          value={answer || ""}
+          value={answer}
           onChange={e => {
             onAnswerChange(question, e.target.value);
           }}
         />
         <ButtonContainer>
-          <Button type="submit">Next</Button>
+          <Button type="submit" disabled={answer.length === 0}>
+            Next
+          </Button>
         </ButtonContainer>
       </form>
     </QuestionContainer>
