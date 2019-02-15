@@ -1,16 +1,21 @@
 import { retrieveAnswers } from "./localPersist";
 
 const initialState = {
-  template: {
-    title: "How was your day?",
-    subtitle: "Please answer these questions",
-    questions: ["Was it sunny?", "Was the food good?", "Was everyone friendly?"]
-  },
+  fetchingTemplate: true,
+  template: null,
   answers: retrieveAnswers()
 };
 
 export function appStateReducer(prevState = initialState, action) {
   switch (action.type) {
+    case "RECEIVE_TEMPLATE": {
+      const { template } = action.payload;
+      return {
+        ...prevState,
+        fetchingTemplate: false,
+        template
+      };
+    }
     case "CHANGE_ANSWER": {
       const { question, answer } = action.payload;
       return {

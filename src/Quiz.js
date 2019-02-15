@@ -10,7 +10,7 @@ import {
   QuestionList,
   SuccessMessage
 } from "./style";
-import { createChangeAnswerAction } from "./actions";
+import { createFetchTemplateAction, createChangeAnswerAction } from "./actions";
 
 export function DoneQuiz() {
   return (
@@ -74,17 +74,55 @@ export function ActiveQuiz({
   );
 }
 
-function Quiz({ template, answers, onAnswerChange, content }) {
-  return (
-    <>
-      <Header>
-        <Title>
-          <Link to="/">{template.title}</Link>
-        </Title>
-        <Subtitle>{template.subtitle}</Subtitle>
-      </Header>
-      <Content>{content(appContextValue)}</Content>
-      <Content>{content({ template, answers, onAnswerChange })}</Content>
-    </>
-  );
+class Quiz extends React.Component {
+  componentDidMount() {
+    this.props.onFetchTemplate();
+  }
+
+  render() {
+    const {
+      fetchingTemplate,
+      template,
+      answers,
+      onAnswerChange,
+      content
+    } = this.props;
+
+    if (fetchingTemplate) {
+      return (
+        <Header>
+          <Title>Loading...</Title>
+          <Subtitle>One moment</Subtitle>
+        </Header>
+      );
+    }
+
+    return (
+      <>
+        <Header>
+          <Title>
+            <Link to="/">{template.title}</Link>
+          </Title>
+          <Subtitle>{template.subtitle}</Subtitle>
+        </Header>
+        <Content>{content({ template, answers, onAnswerChange })}</Content>
+      </>
+    );
+  }
 }
+
+const mapStateToProps = state => ({
+  fetchingTemplate: state.fetchingTemplate,
+  template: state.template,
+  answers: state.answers
+});
+
+const mapDispatchToProps = {
+  onFetchTemplate: createFetchTemplateAction,
+  onAnswerChange: createChangeAnswerAction
+};
+
+const ConnectedQuiz = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Quiz);
