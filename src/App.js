@@ -1,36 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
+import * as ReactRedux from "react-redux";
 import { Router, Switch, Route } from "react-router-dom";
 import { ActiveQuiz, DoneQuiz } from "./Quiz";
-import { retrieveAnswers, storeAnswers } from "./localPersist";
 import { history } from "./router";
 import { GlobalStyle } from "./style";
-import { AppContext } from "./context";
 import ErrorHandler from "./ErrorHandler";
+import { configureStore } from "./store";
 
-const QUIZ = {
-  title: "How was your day?",
-  subtitle: "Please answer these questions",
-  questions: ["Was it sunny?", "Was the food good?", "Was everyone friendly?"]
-};
+const store = configureStore();
 
 export default function App() {
-  const [answers, setAnswers] = useState(retrieveAnswers());
-  const appContextValue = {
-    template: QUIZ,
-    answers,
-    setAnswers: (question, answer) => {
-      const newAnswers = {
-        ...answers,
-        [question]: answer
-      };
-      setAnswers(newAnswers);
-      storeAnswers(newAnswers);
-    }
-  };
-
   return (
     <ErrorHandler>
-      <AppContext.Provider value={appContextValue}>
+      <ReactRedux.Provider store={store}>
         <GlobalStyle />
         <Router history={history}>
           <Switch>
@@ -42,8 +24,8 @@ export default function App() {
                   match.params
                 );
 
-                const handleAnswerSubmit = () => {
-                  if (activeQuestionIndex === QUIZ.questions.length) {
+                const handleAnswerSubmit = template => {
+                  if (activeQuestionIndex === template.questions.length) {
                     history.push("/done");
                   } else {
                     history.push(`/${activeQuestionIndex + 1}`);
@@ -63,7 +45,7 @@ export default function App() {
             />
           </Switch>
         </Router>
-      </AppContext.Provider>
+      </ReactRedux.Provider>
     </ErrorHandler>
   );
 }

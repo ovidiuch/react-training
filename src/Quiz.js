@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { ActiveQuestion, FutureQuestion, PastQuestion } from "./Question";
 import {
   Header,
@@ -9,11 +10,11 @@ import {
   QuestionList,
   SuccessMessage
 } from "./style";
-import { AppContext } from "./context";
+import { createChangeAnswerAction } from "./actions";
 
 export function DoneQuiz() {
   return (
-    <QuizLayout
+    <ConnectedQuiz
       content={({ template, answers }) => (
         <>
           <QuestionList>
@@ -41,8 +42,8 @@ export function ActiveQuiz({
   onAnswerSubmit
 }) {
   return (
-    <QuizLayout
-      content={({ template, answers, setAnswers }) => (
+    <ConnectedQuiz
+      content={({ template, answers, onAnswerChange }) => (
         <QuestionList>
           {template.questions.map((question, index) => {
             const humanIndex = index + 1;
@@ -52,8 +53,8 @@ export function ActiveQuiz({
                   <ActiveQuestion
                     question={question}
                     answer={answers[question]}
-                    onAnswerChange={setAnswers}
-                    onAnswerSubmit={onAnswerSubmit}
+                    onAnswerChange={onAnswerChange}
+                    onAnswerSubmit={() => onAnswerSubmit(template)}
                   />
                 ) : humanIndex < activeQuestionIndex ? (
                   <PastQuestion
@@ -73,10 +74,7 @@ export function ActiveQuiz({
   );
 }
 
-export function QuizLayout({ content }) {
-  const appContextValue = useContext(AppContext);
-  const { template } = appContextValue;
-
+function Quiz({ template, answers, onAnswerChange, content }) {
   return (
     <>
       <Header>
@@ -86,6 +84,7 @@ export function QuizLayout({ content }) {
         <Subtitle>{template.subtitle}</Subtitle>
       </Header>
       <Content>{content(appContextValue)}</Content>
+      <Content>{content({ template, answers, onAnswerChange })}</Content>
     </>
   );
 }
