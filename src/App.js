@@ -6,6 +6,7 @@ import { history } from "./router";
 import { GlobalStyle } from "./style";
 import ErrorHandler from "./ErrorHandler";
 import { configureStore } from "./store";
+import { getQuestionIndexFromRouteParams, selectQuestion } from "./router";
 
 const store = configureStore();
 
@@ -16,7 +17,7 @@ export default function App() {
         <GlobalStyle />
         <Router history={history}>
           <Switch>
-            <Route path="/done" component={() => <DoneQuiz />} />
+            <Route path="/done" component={DoneQuiz} />
             <Route
               path="/:index*"
               component={({ history, match }) => {
@@ -24,21 +25,10 @@ export default function App() {
                   match.params
                 );
 
-                const handleAnswerSubmit = template => {
-                  if (activeQuestionIndex === template.questions.length) {
-                    history.push("/done");
-                  } else {
-                    history.push(`/${activeQuestionIndex + 1}`);
-                  }
-                };
-
                 return (
                   <ActiveQuiz
                     activeQuestionIndex={activeQuestionIndex}
-                    setActiveQuestionIndex={index => {
-                      history.push(`/${index}`);
-                    }}
-                    onAnswerSubmit={handleAnswerSubmit}
+                    setActiveQuestionIndex={selectQuestion}
                   />
                 );
               }}
@@ -48,8 +38,4 @@ export default function App() {
       </ReactRedux.Provider>
     </ErrorHandler>
   );
-}
-
-function getQuestionIndexFromRouteParams({ index }) {
-  return index !== undefined ? parseInt(index, 10) : 1;
 }

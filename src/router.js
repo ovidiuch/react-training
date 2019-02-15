@@ -2,7 +2,7 @@ import { createBrowserHistory } from "history";
 
 export const history = createBrowserHistory();
 
-export function getIndexFromRouteParams({ index }) {
+export function getQuestionIndexFromRouteParams({ index }) {
   return index !== undefined ? Number(index) : 0;
 }
 

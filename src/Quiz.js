@@ -10,7 +10,7 @@ import {
   QuestionList,
   SuccessMessage
 } from "./style";
-import { createFetchTemplateAction, createChangeAnswerAction } from "./actions";
+import { fetchTemplate, changeAnswer, submitQuestion } from "./actions";
 
 export function DoneQuiz() {
   return (
@@ -36,31 +36,26 @@ export function DoneQuiz() {
   );
 }
 
-export function ActiveQuiz({
-  activeQuestionIndex,
-  setActiveQuestionIndex,
-  onAnswerSubmit
-}) {
+export function ActiveQuiz({ activeQuestionIndex, setActiveQuestionIndex }) {
   return (
     <ConnectedQuiz
-      content={({ template, answers, onAnswerChange }) => (
+      content={({ template, answers, onAnswerChange, onAnswerSubmit }) => (
         <QuestionList>
           {template.questions.map((question, index) => {
-            const humanIndex = index + 1;
             return (
               <li key={index}>
-                {humanIndex === activeQuestionIndex ? (
+                {index === activeQuestionIndex ? (
                   <ActiveQuestion
                     question={question}
                     answer={answers[question]}
                     onAnswerChange={onAnswerChange}
-                    onAnswerSubmit={() => onAnswerSubmit(template)}
+                    onAnswerSubmit={() => onAnswerSubmit(activeQuestionIndex)}
                   />
-                ) : humanIndex < activeQuestionIndex ? (
+                ) : index < activeQuestionIndex ? (
                   <PastQuestion
                     question={question}
                     answer={answers[question]}
-                    onSelect={() => setActiveQuestionIndex(humanIndex)}
+                    onSelect={() => setActiveQuestionIndex(index)}
                   />
                 ) : (
                   <FutureQuestion question={question} />
@@ -81,11 +76,12 @@ class Quiz extends React.Component {
 
   render() {
     const {
+      content,
       fetchingTemplate,
       template,
       answers,
       onAnswerChange,
-      content
+      onAnswerSubmit
     } = this.props;
 
     if (fetchingTemplate) {
@@ -105,7 +101,9 @@ class Quiz extends React.Component {
           </Title>
           <Subtitle>{template.subtitle}</Subtitle>
         </Header>
-        <Content>{content({ template, answers, onAnswerChange })}</Content>
+        <Content>
+          {content({ template, answers, onAnswerChange, onAnswerSubmit })}
+        </Content>
       </>
     );
   }
@@ -118,8 +116,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  onFetchTemplate: createFetchTemplateAction,
-  onAnswerChange: createChangeAnswerAction
+  onFetchTemplate: fetchTemplate,
+  onAnswerChange: changeAnswer,
+  onAnswerSubmit: submitQuestion
 };
 
 const ConnectedQuiz = connect(
