@@ -22,8 +22,11 @@ export function ActiveQuestion({
           onAnswerSubmit();
         }}
       >
-        <QuestionTitle>{question}</QuestionTitle>
+        <QuestionTitle>
+          <label htmlFor="active-question-textfield">{question}</label>
+        </QuestionTitle>
         <TextField
+          id="active-question-textfield"
           ref={handleInputEl}
           value={answer}
           onChange={e => {
